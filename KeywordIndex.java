@@ -46,7 +46,7 @@ public class KeywordIndex {
 	 * @throws ArrayIndexOutOfBoundsException - thrown if searched index is outside the bounds of the keywordList.
 	 */
 	public String findKeyword(int index) throws ArrayIndexOutOfBoundsException {
-		if (index < keywordList.size()) return keywordList.get(index);
+		if (index < keywordList.size() && index >= 0) return keywordList.get(index);
 		else throw new ArrayIndexOutOfBoundsException("Invalid keyword entry, ensure using most current keyword list.");
 	}
 	
