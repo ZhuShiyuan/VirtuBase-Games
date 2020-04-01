@@ -43,7 +43,8 @@ public class Window {
 	 */
 	protected void createContents() {
 		shlVirtue = new Shell();
-		shlVirtue.setSize(626, 415);
+		shlVirtue.setSize(1500, 1200);
+		//shlVirtue.setSize(626, 415);
 		shlVirtue.setText("VirtuBase Games");
 
 	}
