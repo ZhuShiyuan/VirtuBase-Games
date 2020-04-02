@@ -3,14 +3,32 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class Driver {
 
-	public static void main(String[] args) {
-		writeSortedToFile();
-		writeProfitsToFile();
+//	public static void main(String[] args) {
+//		writeSortedToFile();
+//		writeProfitsToFile();
+//	}
+	
+	public static KeywordIndex retrieveKeywordIndex() {
+		try {
+			KeywordIndex newIndex = new KeywordIndex();
+			Scanner input = new Scanner(new File("keywordIndex.csv"));
+			String[] stringList = input.nextLine().split(",");
+			newIndex.readList(stringList);
+			input.close();
+			return newIndex;
+		} catch (FileNotFoundException e) {
+			System.out.println("FILE NOT FOUND");
+			return null;
+		}
 	}
-
+	
+// -----------------------------------------------------------------
+	
 	// Reads the data from the file and puts it into an sorted array
 	public static GameData[] retrieveGamesList() {
 
@@ -63,73 +81,6 @@ public class Driver {
 			quickSort(gameData, pivotLocation + 1, end);
 		}
 
-	}
-
-	// partitions the array list of consoles
-	public static int partitionProfit(ConsoleData[] consoleData, int start, int end) {
-		ConsoleData pivot = consoleData[end];
-		int swapLocation = start;
-
-		for (int i = start; i < end; i++) {
-			if (consoleData[i].compareTo(pivot) < 0) {
-				ConsoleData temp = consoleData[i];
-				consoleData[i] = consoleData[swapLocation];
-				consoleData[swapLocation] = temp;
-				swapLocation++;
-			}
-		}
-
-		consoleData[end] = consoleData[swapLocation];
-		consoleData[swapLocation] = pivot;
-		return swapLocation;
-
-	}
-
-	// Sorts the data from the file into a sorted arrayList of consoles
-	public static void quickSortProfit(ConsoleData[] consoleData, int start, int end) {
-
-		if (start >= end) {
-			return;
-		} else {
-			int pivotLocation = partitionProfit(consoleData, start, end);
-			quickSortProfit(consoleData, start, pivotLocation - 1);
-			quickSortProfit(consoleData, pivotLocation + 1, end);
-		}
-
-	}
-
-	// Looks through the listed games and makes a list of the different consoles
-	public static ArrayList<ConsoleData> makeConsoleList() {
-		ArrayList<ConsoleData> consoleList = new ArrayList<ConsoleData>();
-		GameData gameData[] = retrieveGamesList();
-		consoleList.add(new ConsoleData(gameData[0].getConsole(), 0));
-		for (int i = 0; i < gameData.length; i++) {
-			int x = 0;
-			for (int j = 0; j < consoleList.size(); j++) {
-				if (!gameData[i].getConsole().equals(consoleList.get(j).getConsole()))
-					x++;
-				if (x == consoleList.size())
-					consoleList.add(new ConsoleData(gameData[i].getConsole(), 0));
-			}
-		}
-		return consoleList;
-	}
-
-	// Sums the money made on each console and puts it in the ConsoleData object
-	public static ConsoleData[] countMoney() {
-		ArrayList<ConsoleData> consoleList = makeConsoleList();
-		ConsoleData[] consoleData = consoleList.toArray(new ConsoleData[0]);
-		GameData gameData[] = retrieveGamesList();
-		for (int i = 0; i < consoleData.length; i++) {
-			for (int j = 0; j < gameData.length; j++) {
-				if (gameData[j].getConsole().equals(consoleData[i].getConsole())) {
-					double temp = consoleData[i].getSales();
-					consoleData[i].setSales(gameData[j].getSales() + temp);
-				}
-			}
-		}
-		quickSortProfit(consoleData, 0, consoleData.length - 1);
-		return consoleData;
 	}
 
 	// Writes the data to the sorted.csv file
