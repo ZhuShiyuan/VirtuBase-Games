@@ -21,7 +21,7 @@ public class Driver {
 			while (input.hasNext()) {
 				String[] currentString = input.nextLine().split(",");
 				gameDataAL.add(new GameData(currentString[1], currentString[2], Integer.parseInt(currentString[3]),
-						Double.parseDouble(currentString[10])));
+						Double.parseDouble(currentString[6])));
 			}
 			GameData[] gameData = gameDataAL.toArray(new GameData[0]);
 			quickSort(gameData, 0, gameData.length - 1);
