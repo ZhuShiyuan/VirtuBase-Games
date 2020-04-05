@@ -8,16 +8,17 @@ public class GameData {
 	private URL wiki;
 	private int[] indexList;
 	private String[] keywords = new String[3];
-	private ArrayList<Storefront> storefronts = new ArrayList<Storefront>();
+	private ArrayList<Storefront> storefronts;
 	public KeywordIndex keywordIndex;
 	
 	//Creates an object that holds the data on one single game
-	public GameData(String title, String company, URL wiki, int[] indexList, Storefront[] storefrontList, KeywordIndex keywordIndex) {
+	public GameData(String title, String company, URL wiki, int[] indexList, ArrayList<Storefront> storefronts, KeywordIndex keywordIndex) {
 		this.title = title;
 		this.company = company;
 		this.wiki = wiki;
 		this.indexList = indexList;
 		this.keywordIndex =keywordIndex;
+		this.storefronts = storefronts;
 		for (int i = 0; i < keywords.length; i++) {
 			try {
 				setKeyword(indexList[i], this.keywordIndex.findKeyword(indexList[i]));
@@ -25,9 +26,7 @@ public class GameData {
 				setKeyword(indexList[i], "");
 			}
 		}
-		for (Storefront i : storefrontList) {
-			storefronts.add(i);
-		}
+		
 		
 	}
 
@@ -60,6 +59,7 @@ public class GameData {
 	
 	/**
 	 * Convert data members into a usable String for file writing.
+	 * Title,Company,WikiURL,Keyword1,Keyword2,Keyword3,Storefronts
 	 * @return data members combined into a single String.
 	 */
 	public String prepForFile() {
