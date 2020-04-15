@@ -5,7 +5,9 @@ public class KeywordIndex {
 	
 	private ArrayList<String> keywordList;
 	
-	
+	public KeywordIndex() {
+		keywordList = new ArrayList<String>();
+	}
 	/**
 	 * Reads most current keyword list from file.
 	 * @param list - array of Strings to be converted to keywordList
@@ -50,6 +52,22 @@ public class KeywordIndex {
 		if (index == -1) return "";
 		else if (index < keywordList.size() && index >= 0) return keywordList.get(index);
 		else throw new ArrayIndexOutOfBoundsException("Invalid keyword entry, ensure using most current keyword list.");
+	}
+	
+	/**
+	 * Correlate a keyword to its index and return it.
+	 * @param keyword - keyword of index.
+	 * @return index that correlates to keyword as an int.
+	 * @throws ArrayIndexOutOfBoundsException - thrown if searched keyword is outside the bounds of the keywordList.
+	 */
+	public int findIndex(String keyword) throws ArrayIndexOutOfBoundsException {
+		if (keyword == "") return -1;
+		else {
+			for (int index=0; index<keywordList.size();index++) {
+				if (keyword.equals(keywordList.get(index))) return index;
+			}
+			throw new ArrayIndexOutOfBoundsException("Invalid keyword entry, ensure using most current keyword list.");
+		}
 	}
 	
 }
