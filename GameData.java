@@ -9,6 +9,7 @@ public class GameData {
 	private int[] indexList;
 	private String[] keywords = new String[3];
 	private ArrayList<Storefront> storefronts;
+	private int storefrontCount;
 	public KeywordIndex keywordIndex;
 	
 	//Creates an object that holds the data on one single game
@@ -19,9 +20,10 @@ public class GameData {
 		this.indexList = indexList;
 		this.keywordIndex =keywordIndex;
 		this.storefronts = storefronts;
+		this.storefrontCount = storefronts.size();
 		for (int i = 0; i < keywords.length; i++) {
 			try {
-				setKeyword(indexList[i], this.keywordIndex.findKeyword(indexList[i]));
+				setKeyword(i, this.keywordIndex.findKeyword(indexList[i]));
 			} catch (ArrayIndexOutOfBoundsException e) {
 				setKeyword(indexList[i], "");
 			}
@@ -38,8 +40,9 @@ public class GameData {
 		if (index < 3 && index >= 0) return this.keywords[index];
 		else return "ERROR";
 	}
+	public int StorefrontCount() { return this.storefrontCount; }
 	public Storefront getStorefront(int index) {
-		if (index < storefronts.size() && index >= 0) return this.storefronts.get(index);
+		if (index < storefrontCount && index >= 0) return this.storefronts.get(index);
 		else return null;
 	}
 
@@ -49,8 +52,9 @@ public class GameData {
 	public void setWiki(URL wiki) { this.wiki = wiki; }
 	public boolean setKeyword(int index, String keyword) {
 		try {
-			this.keywords[index] = keyword;
 			keywordIndex.addKeyword(keyword);
+			this.keywords[index] = keyword;
+			this.indexList[index] = keywordIndex.findIndex(keyword);
 			return true;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
