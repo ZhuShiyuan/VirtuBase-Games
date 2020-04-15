@@ -29,6 +29,8 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class Window {
 
@@ -89,9 +91,9 @@ public class Window {
 		CSGOpicture.setBounds(400, 140, 300, 274);
 		
 		Button Game1 = new Button(shlVirtue, SWT.NONE);
-		Game1.addMouseListener(new MouseAdapter() {
+		Game1.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("Call of Duty: Modern Warfare");
 				game.setVisible(true);
 			}
@@ -144,9 +146,9 @@ public class Window {
 		Destinypicture.setBounds(1100, 460, 300, 274);
 		
 		Button Game2 = new Button(shlVirtue, SWT.NONE);
-		Game2.addMouseListener(new MouseAdapter() {
+		Game2.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("CSGO");
 				game.setVisible(true);
 			}
@@ -155,9 +157,9 @@ public class Window {
 		Game2.setBounds(498, 425, 105, 27);
 		
 		Button Game3 = new Button(shlVirtue, SWT.NONE);
-		Game3.addMouseListener(new MouseAdapter() {
+		Game3.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("Minecraft");
 				game.setVisible(true);
 			}
@@ -166,9 +168,9 @@ public class Window {
 		Game3.setBounds(848, 425, 105, 27);
 		
 		Button Game4 = new Button(shlVirtue, SWT.NONE);
-		Game4.addMouseListener(new MouseAdapter() {
+		Game4.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("Fortnite");
 				game.setVisible(true);
 			}
@@ -177,9 +179,9 @@ public class Window {
 		Game4.setBounds(1198, 425, 105, 27);
 		
 		Button Game8 = new Button(shlVirtue, SWT.NONE);
-		Game8.addMouseListener(new MouseAdapter() {
+		Game8.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("Destiny");
 				game.setVisible(true);
 			}
@@ -188,9 +190,9 @@ public class Window {
 		Game8.setBounds(1198, 745, 105, 27);
 		
 		Button Game7 = new Button(shlVirtue, SWT.NONE);
-		Game7.addMouseListener(new MouseAdapter() {
+		Game7.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("RocketLeague");
 				game.setVisible(true);
 			}
@@ -199,9 +201,9 @@ public class Window {
 		Game7.setBounds(848, 745, 105, 27);
 		
 		Button Game6 = new Button(shlVirtue, SWT.NONE);
-		Game6.addMouseListener(new MouseAdapter() {
+		Game6.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("GTA");
 				game.setVisible(true);
 			}
@@ -210,9 +212,9 @@ public class Window {
 		Game6.setBounds(498, 745, 105, 27);
 		
 		Button Game5 = new Button(shlVirtue, SWT.NONE);
-		Game5.addMouseListener(new MouseAdapter() {
+		Game5.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				InfoWindow game = new InfoWindow("Overwatch");
 				game.setVisible(true);
 			}
@@ -226,9 +228,9 @@ public class Window {
 		CheckOW.setBounds(904, 80, 99, 34);
 		
 		Button btnSearch = new Button(shlVirtue, SWT.NONE);
-		btnSearch.addMouseListener(new MouseAdapter() {
+		btnSearch.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				boolean f = false;
 				boolean t = true;
 				if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == false && CheckOW.getSelection() == false) {
