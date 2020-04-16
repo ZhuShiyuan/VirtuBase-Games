@@ -66,11 +66,11 @@ public class Login {
 		password.setBounds(136, 159, 227, 29);
 		
 		usernameicon = new Label(shlLoginVirtubase, SWT.NONE);
-		usernameicon.setImage(SWTResourceManager.getImage("/Users/josh/CSE201Workspace/CSE201/pictures/usernameicon.png"));
+		usernameicon.setImage(SWTResourceManager.getImage("./pictures/usernameicon.png"));
 		usernameicon.setBounds(91, 102, 35, 35);
 		
 		passwordicon = new Label(shlLoginVirtubase, SWT.NONE);
-		passwordicon.setImage(SWTResourceManager.getImage("/Users/josh/CSE201Workspace/CSE201/pictures/passwordicon.png"));
+		passwordicon.setImage(SWTResourceManager.getImage("./pictures/passwordicon.png"));
 		passwordicon.setBounds(91, 156, 35, 35);
 		
 		invaliderror = new Label(shlLoginVirtubase, SWT.NONE);
@@ -134,7 +134,7 @@ public class Login {
 				shlLoginVirtubase.close();
 			}
 		});
-		userbutton.setImage(SWTResourceManager.getImage("/Users/josh/CSE201Workspace/CSE201/pictures/userlogin.png"));
+		userbutton.setImage(SWTResourceManager.getImage("./pictures/userlogin.png"));
 		userbutton.setBounds(27, 70, 180, 180);
 				
 		Button adminbutton = new Button(shlLoginVirtubase, SWT.NONE);
@@ -154,7 +154,7 @@ public class Login {
 						
 			}
 		});
-		adminbutton.setImage(SWTResourceManager.getImage("/Users/josh/CSE201Workspace/CSE201/pictures/adminlogin.png"));
+		adminbutton.setImage(SWTResourceManager.getImage("./pictures/adminlogin.png"));
 		adminbutton.setBounds(267, 70, 180, 180);
 				
 				

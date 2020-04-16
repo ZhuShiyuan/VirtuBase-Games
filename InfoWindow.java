@@ -112,7 +112,7 @@ public class InfoWindow extends JFrame {
 		});
 		
 		JLabel pcicon = new JLabel("");
-		pcicon.setIcon(new ImageIcon("/Users/josh/CSE201Workspace/CSE201/pictures/pcicon.png"));
+		pcicon.setIcon(new ImageIcon("./pictures/pcicon.png"));
 		pcicon.setBounds(86, 212, 40, 40);
 		contentPane.add(pcicon);
 		
@@ -136,7 +136,7 @@ public class InfoWindow extends JFrame {
 			String storeLink2 = game.getStorefront(1).getLink().toString();
 			
 			JLabel ps4icon = new JLabel("");
-			ps4icon.setIcon(new ImageIcon("/Users/josh/CSE201Workspace/CSE201/pictures/ps4icon.png"));
+			ps4icon.setIcon(new ImageIcon("./pictures/ps4icon.png"));
 			ps4icon.setBounds(86, 264, 40, 40);
 			contentPane.add(ps4icon);
 			
@@ -201,14 +201,14 @@ public class InfoWindow extends JFrame {
 		JLabel gamepicture = new JLabel("");
 		String picture;
 		
-		if(name == "Call of Duty: Modern Warfare") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/callofdutypicture.jpg";
-		else if(name == "CSGO") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/csgopicture.jpeg";
-		else if(name == "Minecraft") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/minecraftpicture.jpeg";
-		else if (name == "Fortnite") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/fortnitepicture.jpg";
-		else if (name == "Overwatch") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/overwatchpicture.jpg";
-		else if (name == "GTA") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/gtapicture.png";
-		else if (name == "RocketLeague") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/rlpicture.jpg";
-		else if (name == "Destiny") picture = "/Users/josh/CSE201Workspace/CSE201/pictures/destinypicture.jpg";
+		if(name == "Call of Duty: Modern Warfare") picture = "./pictures/callofdutypicture.jpg";
+		else if(name == "CSGO") picture = "./pictures/csgopicture.jpeg";
+		else if(name == "Minecraft") picture = "./pictures/minecraftpicture.jpeg";
+		else if (name == "Fortnite") picture = "./pictures/fortnitepicture.jpg";
+		else if (name == "Overwatch") picture = "./pictures/overwatchpicture.jpg";
+		else if (name == "GTA") picture = "./pictures/gtapicture.png";
+		else if (name == "RocketLeague") picture = "./pictures/rlpicture.jpg";
+		else if (name == "Destiny") picture = "./pictures/destinypicture.jpg";
 		else picture = "NOT FOUND";
 		
 		gamepicture.setIcon(new ImageIcon(picture));
