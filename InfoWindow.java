@@ -157,7 +157,7 @@ public class InfoWindow extends JFrame {
 				}
 			});
 			
-			JLabel lblPrice = new JLabel("Price: " + storeName + " $" + storePrice + ", " + storeName2 + " $" + storePrice2);
+			JLabel lblPrice = new JLabel("Prices: " + storeName + " $" + storePrice + ", " + storeName2 + " $" + storePrice2);
 			lblPrice.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			lblPrice.setBounds(15, 310, 396, 40);
 			contentPane.add(lblPrice);
