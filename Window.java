@@ -35,7 +35,7 @@ import org.eclipse.swt.events.SelectionEvent;
 public class Window {
 
 	protected Shell shlVirtue;
-	private Text text;
+	private Text searchBox;
 
 	/**
 	 * Launch the application.
@@ -75,6 +75,17 @@ public class Window {
 		shlVirtue.setText("VirtuBase Games");
 		shlVirtue.setLayout(null);
 		
+		Label AdminMode = new Label(shlVirtue, SWT.NONE);
+		AdminMode.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		AdminMode.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 25, SWT.BOLD));
+		AdminMode.setBounds(1253, 10, 160, 34);
+		AdminMode.setText("ADMIN MODE");
+		AdminMode.setVisible(false);
+		
+		if(Login.getLoginStatus()) {
+			AdminMode.setVisible(true);
+		}
+		
 		Label lblNewLabel = new Label(shlVirtue, SWT.NONE);
 		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
 		lblNewLabel.setAlignment(SWT.CENTER);
@@ -101,8 +112,9 @@ public class Window {
 		Game1.setBounds(148, 425, 105, 27);
 		Game1.setText("Learn more");
 		
-		text = new Text(shlVirtue, SWT.BORDER);
-		text.setBounds(445, 80, 284, 34);
+		searchBox = new Text(shlVirtue, SWT.BORDER);
+		searchBox.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 19, SWT.NORMAL));
+		searchBox.setBounds(445, 80, 284, 34);
 		
 		Button CheckShooter = new Button(shlVirtue, SWT.CHECK);
 		CheckShooter.setSelection(true);
@@ -233,7 +245,157 @@ public class Window {
 			public void widgetSelected(SelectionEvent e) {
 				boolean f = false;
 				boolean t = true;
-				if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == false && CheckOW.getSelection() == false) {
+				
+				System.out.println(getSearch());
+				
+				if(getSearch().equals("")) {
+					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == false && CheckOW.getSelection() == false) {
+						CODpicture.setVisible(f);
+						Game1.setVisible(f);
+						CSGOpicture.setVisible(f);
+						Game2.setVisible(f);
+						Minecraftpicture.setVisible(f);
+						Game3.setVisible(f);
+						Fortnitepicture.setVisible(f);
+						Game4.setVisible(f);
+						OverwatchPicture.setVisible(f);
+						Game5.setVisible(f);
+						GTApicture.setVisible(f);
+						Game6.setVisible(f);
+						Rlpicture.setVisible(f);
+						Game7.setVisible(f);
+						Destinypicture.setVisible(f);
+						Game8.setVisible(f);
+					}
+					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == false  && CheckOW.getSelection() == true) {
+						CODpicture.setVisible(f);
+						Game1.setVisible(f);
+						CSGOpicture.setVisible(f);
+						Game2.setVisible(f);
+						Minecraftpicture.setVisible(t);
+						Game3.setVisible(t);
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+						OverwatchPicture.setVisible(f);
+						Game5.setVisible(f);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(f);
+						Game7.setVisible(f);
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
+						CODpicture.setVisible(f);
+						Game1.setVisible(f);
+						CSGOpicture.setVisible(f);
+						Game2.setVisible(f);
+						Minecraftpicture.setVisible(t);
+						Game3.setVisible(t);
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+						OverwatchPicture.setVisible(f);
+						Game5.setVisible(f);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(t);
+						Game7.setVisible(t);
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == true  && CheckOW.getSelection() == false) {
+						CODpicture.setVisible(f);
+						Game1.setVisible(f);
+						CSGOpicture.setVisible(f);
+						Game2.setVisible(f);
+						Minecraftpicture.setVisible(f);
+						Game3.setVisible(f);
+						Fortnitepicture.setVisible(f);
+						Game4.setVisible(f);
+						OverwatchPicture.setVisible(f);
+						Game5.setVisible(f);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(t);
+						Game7.setVisible(t);
+						Destinypicture.setVisible(f);
+						Game8.setVisible(f);
+					}
+					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == true) {
+						CODpicture.setVisible(t);
+						Game1.setVisible(t);
+						CSGOpicture.setVisible(t);
+						Game2.setVisible(t);
+						Minecraftpicture.setVisible(t);
+						Game3.setVisible(t);
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+						OverwatchPicture.setVisible(t);
+						Game5.setVisible(t);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(f);
+						Game7.setVisible(f);
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == false) {
+						CODpicture.setVisible(t);
+						Game1.setVisible(t);
+						CSGOpicture.setVisible(t);
+						Game2.setVisible(t);
+						Minecraftpicture.setVisible(t);
+						Game3.setVisible(t);
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+						OverwatchPicture.setVisible(t);
+						Game5.setVisible(t);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(t);
+						Game7.setVisible(t);
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
+						CODpicture.setVisible(t);
+						Game1.setVisible(t);
+						CSGOpicture.setVisible(t);
+						Game2.setVisible(t);
+						Minecraftpicture.setVisible(t);
+						Game3.setVisible(t);
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+						OverwatchPicture.setVisible(t);
+						Game5.setVisible(t);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(t);
+						Game7.setVisible(t);
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == false) {
+						CODpicture.setVisible(t);
+						Game1.setVisible(t);
+						CSGOpicture.setVisible(t);
+						Game2.setVisible(t);
+						Minecraftpicture.setVisible(f);
+						Game3.setVisible(f);
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+						OverwatchPicture.setVisible(t);
+						Game5.setVisible(t);
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+						Rlpicture.setVisible(f);
+						Game7.setVisible(f);
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
+				}
+				//If searched
+				else {
 					CODpicture.setVisible(f);
 					Game1.setVisible(f);
 					CSGOpicture.setVisible(f);
@@ -250,136 +412,57 @@ public class Window {
 					Game7.setVisible(f);
 					Destinypicture.setVisible(f);
 					Game8.setVisible(f);
-				}
-				if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == false  && CheckOW.getSelection() == true) {
-					CODpicture.setVisible(f);
-					Game1.setVisible(f);
-					CSGOpicture.setVisible(f);
-					Game2.setVisible(f);
-					Minecraftpicture.setVisible(t);
-					Game3.setVisible(t);
-					Fortnitepicture.setVisible(t);
-					Game4.setVisible(t);
-					OverwatchPicture.setVisible(f);
-					Game5.setVisible(f);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(f);
-					Game7.setVisible(f);
-					Destinypicture.setVisible(t);
-					Game8.setVisible(t);
-				}
-				if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
-					CODpicture.setVisible(f);
-					Game1.setVisible(f);
-					CSGOpicture.setVisible(f);
-					Game2.setVisible(f);
-					Minecraftpicture.setVisible(t);
-					Game3.setVisible(t);
-					Fortnitepicture.setVisible(t);
-					Game4.setVisible(t);
-					OverwatchPicture.setVisible(f);
-					Game5.setVisible(f);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(t);
-					Game7.setVisible(t);
-					Destinypicture.setVisible(t);
-					Game8.setVisible(t);
-				}
-				if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == true  && CheckOW.getSelection() == false) {
-					CODpicture.setVisible(f);
-					Game1.setVisible(f);
-					CSGOpicture.setVisible(f);
-					Game2.setVisible(f);
-					Minecraftpicture.setVisible(f);
-					Game3.setVisible(f);
-					Fortnitepicture.setVisible(f);
-					Game4.setVisible(f);
-					OverwatchPicture.setVisible(f);
-					Game5.setVisible(f);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(t);
-					Game7.setVisible(t);
-					Destinypicture.setVisible(f);
-					Game8.setVisible(f);
-				}
-				if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == true) {
-					CODpicture.setVisible(t);
-					Game1.setVisible(t);
-					CSGOpicture.setVisible(t);
-					Game2.setVisible(t);
-					Minecraftpicture.setVisible(t);
-					Game3.setVisible(t);
-					Fortnitepicture.setVisible(t);
-					Game4.setVisible(t);
-					OverwatchPicture.setVisible(t);
-					Game5.setVisible(t);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(f);
-					Game7.setVisible(f);
-					Destinypicture.setVisible(t);
-					Game8.setVisible(t);
-				}
-				if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == false) {
-					CODpicture.setVisible(t);
-					Game1.setVisible(t);
-					CSGOpicture.setVisible(t);
-					Game2.setVisible(t);
-					Minecraftpicture.setVisible(t);
-					Game3.setVisible(t);
-					Fortnitepicture.setVisible(t);
-					Game4.setVisible(t);
-					OverwatchPicture.setVisible(t);
-					Game5.setVisible(t);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(t);
-					Game7.setVisible(t);
-					Destinypicture.setVisible(t);
-					Game8.setVisible(t);
-				}
-				if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
-					CODpicture.setVisible(t);
-					Game1.setVisible(t);
-					CSGOpicture.setVisible(t);
-					Game2.setVisible(t);
-					Minecraftpicture.setVisible(t);
-					Game3.setVisible(t);
-					Fortnitepicture.setVisible(t);
-					Game4.setVisible(t);
-					OverwatchPicture.setVisible(t);
-					Game5.setVisible(t);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(t);
-					Game7.setVisible(t);
-					Destinypicture.setVisible(t);
-					Game8.setVisible(t);
-				}
-				if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == false) {
-					CODpicture.setVisible(t);
-					Game1.setVisible(t);
-					CSGOpicture.setVisible(t);
-					Game2.setVisible(t);
-					Minecraftpicture.setVisible(f);
-					Game3.setVisible(f);
-					Fortnitepicture.setVisible(t);
-					Game4.setVisible(t);
-					OverwatchPicture.setVisible(t);
-					Game5.setVisible(t);
-					GTApicture.setVisible(t);
-					Game6.setVisible(t);
-					Rlpicture.setVisible(f);
-					Game7.setVisible(f);
-					Destinypicture.setVisible(t);
-					Game8.setVisible(t);
+					
+					if("call of duty: modern warfare cod".contains(getSearch())) {
+						CODpicture.setVisible(t);
+						Game1.setVisible(t);
+					}
+					
+					if("csgo counter strike global offensive".contains(getSearch())) {
+						CSGOpicture.setVisible(t);
+						Game2.setVisible(t);
+					}
+					
+					if("minecraft".contains(getSearch())) {
+						Minecraftpicture.setVisible(t);
+						Game3.setVisible(t);
+					}
+					
+					if("fortnite".contains(getSearch())) {
+						Fortnitepicture.setVisible(t);
+						Game4.setVisible(t);
+					}
+					
+					if("overwatch".contains(getSearch())) {
+						OverwatchPicture.setVisible(t);
+						Game5.setVisible(t);
+					}
+					
+					if("gta grand theft auto".contains(getSearch())) {
+						GTApicture.setVisible(t);
+						Game6.setVisible(t);
+					}
+					
+					if("rl rocketleague rocket league".contains(getSearch())) {
+						Rlpicture.setVisible(t);
+						Game7.setVisible(t);
+					}
+					
+					if("destiny 2".contains(getSearch())) {
+						Destinypicture.setVisible(t);
+						Game8.setVisible(t);
+					}
 				}
 			}
 		});
 		btnSearch.setBounds(1009, 85, 94, 27);
 		btnSearch.setText("Search");
+	}
+	
+	public String getSearch() {
+		return searchBox.getText().toLowerCase();
+	}
+	
+	public void search() {
 	}
 }

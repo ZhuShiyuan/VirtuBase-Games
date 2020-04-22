@@ -18,6 +18,7 @@ public class Login {
 	private Button back;
 	private Label usernameicon;
 	private Label passwordicon;
+	private static boolean loginStatus = false;
 
 	/**
 	 * Launch the application.
@@ -86,6 +87,7 @@ public class Login {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(username.getText().equals("admin") && password.getText().equals("password")) {
+					loginStatus = true;
 					Window main = new Window();
 					main.open();
 					shlLoginVirtubase.close();
@@ -162,5 +164,9 @@ public class Login {
 		Browser background = new Browser(shlLoginVirtubase, SWT.NONE);
 		background.setUrl("https://i.pinimg.com/originals/24/22/32/24223276aba1bd1f91190a745023e469.gif");
 		background.setBounds(0, -54, 500, 500);
+	}
+	
+	public static boolean getLoginStatus() {
+		return loginStatus;
 	}
 }

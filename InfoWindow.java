@@ -195,6 +195,8 @@ public class InfoWindow extends JFrame {
 		
 		JLabel keywordtext = new JLabel("Keywords: " + keyword1 + ", " + keyword2 + ", " + keyword3);
 		keywordtext.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		if(name == "Overwatch") keywordtext.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
+		if(name == "Fortnite") keywordtext.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		keywordtext.setBounds(15, 160, 396, 40);
 		contentPane.add(keywordtext);
 		
