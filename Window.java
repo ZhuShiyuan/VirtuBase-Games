@@ -246,8 +246,6 @@ public class Window {
 				boolean f = false;
 				boolean t = true;
 				
-				System.out.println(getSearch());
-				
 				if(getSearch().equals("")) {
 					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == false && CheckOW.getSelection() == false) {
 						CODpicture.setVisible(f);
@@ -413,42 +411,42 @@ public class Window {
 					Destinypicture.setVisible(f);
 					Game8.setVisible(f);
 					
-					if("call of duty: modern warfare cod".contains(getSearch())) {
+					if(search("call of duty: modern warfare cod")) {
 						CODpicture.setVisible(t);
 						Game1.setVisible(t);
 					}
 					
-					if("csgo counter strike global offensive".contains(getSearch())) {
+					if(search("csgo counter strike global offensive")) {
 						CSGOpicture.setVisible(t);
 						Game2.setVisible(t);
 					}
 					
-					if("minecraft".contains(getSearch())) {
+					if(search("minecraft")) {
 						Minecraftpicture.setVisible(t);
 						Game3.setVisible(t);
 					}
 					
-					if("fortnite".contains(getSearch())) {
+					if(search("fortnite battle royale")) {
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
 					}
 					
-					if("overwatch".contains(getSearch())) {
+					if(search("overwatch")) {
 						OverwatchPicture.setVisible(t);
 						Game5.setVisible(t);
 					}
 					
-					if("gta grand theft auto".contains(getSearch())) {
+					if(search("gta grand theft auto")) {
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
 					}
 					
-					if("rl rocketleague rocket league".contains(getSearch())) {
+					if(search("rl rocketleague rocket league")) {
 						Rlpicture.setVisible(t);
 						Game7.setVisible(t);
 					}
 					
-					if("destiny 2".contains(getSearch())) {
+					if(search("destiny 2")) {
 						Destinypicture.setVisible(t);
 						Game8.setVisible(t);
 					}
@@ -462,7 +460,8 @@ public class Window {
 	public String getSearch() {
 		return searchBox.getText().toLowerCase();
 	}
-	
-	public void search() {
+
+	public boolean search(String titleWords) {
+		return titleWords.contains(getSearch());
 	}
 }
