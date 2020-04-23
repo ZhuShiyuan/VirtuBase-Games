@@ -460,6 +460,11 @@ public class Window {
 	public String getSearch() {
 		return searchBox.getText().toLowerCase();
 	}
+	
+	//pretends to do a search in order to test the program
+		public String getFakeSearch(String searchTerm) {
+		return searchTerm.toLowerCase();
+	}
 
 	public boolean search(String titleWords) {
 		return titleWords.contains(getSearch());
