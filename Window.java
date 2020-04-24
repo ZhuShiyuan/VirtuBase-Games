@@ -31,11 +31,15 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.events.DragDetectListener;
+import org.eclipse.swt.events.DragDetectEvent;
 
 public class Window {
 
 	protected Shell shlVirtue;
 	private Text searchBox;
+	private Table table;
 
 	/**
 	 * Launch the application.
@@ -71,7 +75,7 @@ public class Window {
 	protected void createContents() {
 		shlVirtue = new Shell();
 		shlVirtue.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
-		shlVirtue.setSize(1450, 800);
+		shlVirtue.setSize(1450, 825);
 		shlVirtue.setText("VirtuBase Games");
 		shlVirtue.setLayout(null);
 		
@@ -394,6 +398,7 @@ public class Window {
 				}
 				//If searched
 				else {
+					
 					CODpicture.setVisible(f);
 					Game1.setVisible(f);
 					CSGOpicture.setVisible(f);
@@ -455,15 +460,13 @@ public class Window {
 		});
 		btnSearch.setBounds(1009, 85, 94, 27);
 		btnSearch.setText("Search");
+		
+		
+		
 	}
 	
 	public String getSearch() {
 		return searchBox.getText().toLowerCase();
-	}
-	
-	//pretends to do a search in order to test the program
-		public String getFakeSearch(String searchTerm) {
-		return searchTerm.toLowerCase();
 	}
 
 	public boolean search(String titleWords) {
