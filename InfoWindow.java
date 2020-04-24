@@ -3,7 +3,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import org.eclipse.swt.*;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.wb.swt.CommentWindow;
+
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
