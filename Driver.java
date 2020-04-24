@@ -1,5 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +12,7 @@ public class Driver {
 	
 	public static KeywordIndex keyDex = new KeywordIndex();
 	public static ArrayList<GameData> gameList = new ArrayList<GameData>();
-	public static ArrayList<CommentData> commentList = new ArrayList<CommentData>();
+	public static ArrayList<CommentData> commentList = new ArrayList<CommentData>();;
 
 	public static void main(String[] args) {
 		retrieveGamesList();
@@ -58,6 +60,7 @@ public class Driver {
 			
 			//Comments
 			Scanner commentInput = new Scanner(new File("commentdatabase.csv"));
+			commentList.clear();
 			
 			while(commentInput.hasNext()) {
 				String[] commentData = commentInput.nextLine().split(",");
@@ -79,17 +82,30 @@ public class Driver {
 	// Write data to database file
 	public static void writeToFile() {
 		try {
-			PrintWriter writer = new PrintWriter("database.csv");
-			String[] keywords = keyDex.writeList();
-			String formatKeyword = "";
-			for (String i :keywords) {
-				formatKeyword = formatKeyword + i + ",";
-			}
-			writer.println(formatKeyword);
-			for (int i=0; i<gameList.size();i++) {
-				writer.println(gameList.get(i).prepForFile());
-			}
-			writer.close();
+		    PrintWriter commentWriter = new PrintWriter("commentdatabase.csv");
+		    
+		    //old comments
+		    for(int j = 0; j < commentList.size(); j++) {
+		    	commentWriter.println(commentList.get(j).getGame() + "," + commentList.get(j).getUsername() +
+		    			"," + commentList.get(j).getComment());
+		    }
+		    
+		    //new comment
+		    commentWriter.println(CommentWindow.output());
+		    
+		    commentWriter.close();
+		    
+//			PrintWriter writer = new PrintWriter("database.csv");
+//			String[] keywords = keyDex.writeList();
+//			String formatKeyword = "";
+//			for (String i :keywords) {
+//				formatKeyword = formatKeyword + i + ",";
+//			}
+//			writer.println(formatKeyword);
+//			for (int i=0; i<gameList.size();i++) {
+//				writer.println(gameList.get(i).prepForFile());
+//			}
+//			writer.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("WRITE FILE NOT FOUND");
 		}

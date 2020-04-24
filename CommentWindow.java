@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.crypto.Data;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -24,6 +25,10 @@ public class CommentWindow extends JFrame {
 	private JTable table;
 	private JTextField enterUsername;
 	private JTextField enterComment;
+	private static String newUser = "";
+	private static String newComment = "";
+	private static String newGame = "";
+	private DefaultTableModel model = new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -45,6 +50,8 @@ public class CommentWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public CommentWindow(String game) {	
+		newGame = game;
+		
 		setTitle(game + " | Comments");
 		setResizable(false);
 		setAutoRequestFocus(false);
@@ -60,50 +67,19 @@ public class CommentWindow extends JFrame {
 		scrollPane.setBounds(6, 52, 696, 363);
 		contentPane.add(scrollPane);
 		
-		DefaultTableModel model = new DefaultTableModel();
 		table = new JTable(model);
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		
-		table.setModel(new DefaultTableModel (
-				new Object[][] {
-					
-				},
-				new String[] {
-						"Username","Comment"
-				}
-		));
+		
+		setup();
 		scrollPane.setViewportView(table);
 
 		
-		Driver.retrieveGamesList();
 		JButton RefreshButton = new JButton("Refresh");
 		RefreshButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//clear rows
-				DefaultTableModel model = new DefaultTableModel();
-				table = new JTable(model);
 				
-				table.setModel(new DefaultTableModel (
-						new Object[][] {
-							
-						},
-						new String[] {
-								"Username","Comment"
-						}
-				));
-				scrollPane.setViewportView(table);
-				
-				//add updated rows
-				for(int i = 0; i < Driver.commentList.size()/2; i++) {
-					CommentData comments = Driver.commentList.get(i);
-					if(comments.getGame().equals(game)) {
-						Object[] newComment = new Object[table.getModel().getColumnCount()];
-						newComment[0] = comments.getUsername();
-						newComment[1] = comments.getComment();
-						((DefaultTableModel) table.getModel()).addRow(newComment);
-					}
-				}
 			}
 		});
 		RefreshButton.setBounds(206, 526, 117, 29);
@@ -137,33 +113,18 @@ public class CommentWindow extends JFrame {
 		contentPane.add(enterComment);
 		
 		JButton enterButton = new JButton("Enter");
-		enterButton.addMouseListener(new MouseAdapter() {
+		enterButton.addMouseListener(new MouseAdapter() {	
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				newUser = enterUsername.getText();
+				newComment = enterComment.getText();
+				
+				Driver.writeToFile();
+				
+				clearText();
+				
 				//clear rows
-				DefaultTableModel model = new DefaultTableModel();
-				table = new JTable(model);
-				
-				table.setModel(new DefaultTableModel (
-						new Object[][] {
-							
-						},
-						new String[] {
-								"Username","Comment"
-						}
-				));
-				scrollPane.setViewportView(table);
-				
-				//add updated rows
-				for(int i = 0; i < Driver.commentList.size()/2; i++) {
-					CommentData comments = Driver.commentList.get(i);
-					if(comments.getGame().equals(game)) {
-						Object[] newComment = new Object[table.getModel().getColumnCount()];
-						newComment[0] = comments.getUsername();
-						newComment[1] = comments.getComment();
-						((DefaultTableModel) table.getModel()).addRow(newComment);
-					}
-				}
+				setup();
 			}
 		});
 		enterButton.setBounds(324, 526, 117, 29);
@@ -175,5 +136,33 @@ public class CommentWindow extends JFrame {
 		TitleText.setFont(new Font("Lucida Grande", Font.BOLD, 30));
 		TitleText.setBounds(6, 6, 696, 41);
 		contentPane.add(TitleText);
+	}
+	
+	
+	
+	private void clearText() {
+		enterUsername.setText("");
+		enterComment.setText("");
+	}
+	
+	public static String output() {
+		String output = newGame + "," + newUser + "," + newComment;
+		return output;
+	}
+	
+	private void setup() {
+		Driver.retrieveGamesList();
+		String [] column = {"Username", "Comment"};
+		String[][] data = new String[Driver.commentList.size()][2];
+		int count = 0;
+		for(int i = 0; i < Driver.commentList.size(); i++) {
+			if(Driver.commentList.get(i).getGame().equals(newGame)) {
+				data[count][0] = Driver.commentList.get(i).getUsername();
+				data[count][1] = Driver.commentList.get(i).getComment();
+				count++;
+			}
+		}
+		
+		model.setDataVector(data, column);
 	}
 }
