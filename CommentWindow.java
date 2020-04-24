@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class CommentWindow extends JFrame {
 
@@ -42,7 +44,8 @@ public class CommentWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CommentWindow(String game) {
+	public CommentWindow(String game) {	
+		setTitle(game + " | Comments");
 		setResizable(false);
 		setAutoRequestFocus(false);
 		setAlwaysOnTop(true);
@@ -165,5 +168,12 @@ public class CommentWindow extends JFrame {
 		});
 		enterButton.setBounds(324, 526, 117, 29);
 		contentPane.add(enterButton);
+			
+		JLabel TitleText = new JLabel("Comments for " + game);
+		TitleText.setHorizontalAlignment(SwingConstants.CENTER);
+		TitleText.setForeground(Color.RED);
+		TitleText.setFont(new Font("Lucida Grande", Font.BOLD, 30));
+		TitleText.setBounds(6, 6, 696, 41);
+		contentPane.add(TitleText);
 	}
 }

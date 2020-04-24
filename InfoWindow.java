@@ -34,7 +34,6 @@ public class InfoWindow extends JFrame {
 	private String name, company, keyword1, keyword2, keyword3, storeName, wiki, storeLink, picture,
 		newGame1, newGame2, newGame3;
 	double storePrice;
-	private ArrayList<GameData> games = new ArrayList<GameData>();
 	private int position = 0;
 	private JButton Rec1, Rec2, Rec3, CommentsButton;
 
@@ -63,14 +62,14 @@ public class InfoWindow extends JFrame {
 		
 		name = gameName;
 		
-		if(name == "Call of Duty: Modern Warfare") position = 0;
-		else if(name == "CSGO") position = 1;
-		else if(name == "Minecraft") position = 2;
-		else if (name == "Fortnite") position = 3;
-		else if (name == "Overwatch") position = 4;
-		else if (name == "GTA") position = 5;
-		else if (name == "RocketLeague") position = 6;
-		else if (name == "Destiny") position = 7;
+		if(name.equals("Call of Duty: Modern Warfare")) position = 0;
+		else if(name.equals("CSGO")) position = 1;
+		else if(name.equals("Minecraft")) position = 2;
+		else if (name.equals("Fortnite")) position = 3;
+		else if (name.equals("Overwatch")) position = 4;
+		else if (name.equals("GTA")) position = 5;
+		else if (name.equals("RocketLeague")) position = 6;
+		else if (name.equals("Destiny 2")) position = 7;
 		
 		GameData game = Driver.gameList.get(position);
 		
@@ -205,7 +204,7 @@ public class InfoWindow extends JFrame {
 		
 		JLabel gamepicture = new JLabel("");
 		
-		if(name == "Call of Duty: Modern Warfare") {
+		if(name.equals("Call of Duty: Modern Warfare")) {
 			picture = "./pictures/callofdutypicture.jpg";
 			Rec1 = new JButton("CSGO");
 			newGame1 = "CSGO";
@@ -214,7 +213,7 @@ public class InfoWindow extends JFrame {
 			Rec3 = new JButton("Fortnite");
 			newGame3 = "Fortnite";
 		}
-		else if(name == "CSGO") {
+		else if(name.equals("CSGO")) {
 			picture = "./pictures/csgopicture.jpeg";
 			Rec1 = new JButton("COD");
 			newGame1 = "Call of Duty: Modern Warfare";
@@ -223,7 +222,7 @@ public class InfoWindow extends JFrame {
 			Rec3 = new JButton("Fortnite");
 			newGame3 = "Fortnite";
 		}
-		else if(name == "Minecraft") {
+		else if(name.equals("Minecraft")) {
 			picture = "./pictures/minecraftpicture.jpeg";
 			Rec1 = new JButton("Rocket League");
 			newGame1 = "RocketLeague";
@@ -232,7 +231,7 @@ public class InfoWindow extends JFrame {
 			Rec3 = new JButton("GTA");
 			newGame3 = "GTA";
 		}
-		else if (name == "Fortnite") {
+		else if (name.equals("Fortnite")) {
 			picture = "./pictures/fortnitepicture.jpg";
 			Rec1 = new JButton("COD");
 			newGame1 = "Call of Duty: Modern Warfare";
@@ -241,25 +240,25 @@ public class InfoWindow extends JFrame {
 			Rec3 = new JButton("Overwatch");
 			newGame3 = "Overwatch";
 		}
-		else if (name == "Overwatch") {
+		else if (name.equals("Overwatch")) {
 			picture = "./pictures/overwatchpicture.jpg";
 			Rec1 = new JButton("COD");
 			newGame1 = "Call of Duty: Modern Warfare";
 			Rec2 = new JButton("CSGO");
 			newGame2 = "CSGO";
 			Rec3 = new JButton("Destiny 2");
-			newGame3 = "Destiny";
+			newGame3 = "Destiny 2";
 		}
-		else if (name == "GTA") {
+		else if (name.equals("GTA")) {
 			picture = "./pictures/gtapicture.png";
 			Rec1 = new JButton("Rocket League");
 			newGame1 = "RocketLeague";
 			Rec2 = new JButton("COD");
 			newGame2 = "Call of Duty: Modern Warfare";
 			Rec3 = new JButton("Destiny 2");
-			newGame3 = "Destiny";
+			newGame3 = "Destiny 2";
 		}
-		else if (name == "RocketLeague") {
+		else if (name.equals("RocketLeague")) {
 			picture = "./pictures/rlpicture.jpg";
 			Rec1 = new JButton("GTA");
 			newGame1 = "GTA";
@@ -268,7 +267,7 @@ public class InfoWindow extends JFrame {
 			Rec3 = new JButton("Minecraft");
 			newGame3 = "Minecraft";
 		}
-		else if (name == "Destiny") {
+		else if (name.equals("Destiny 2")) {
 			picture = "./pictures/destinypicture.jpg";
 			Rec1 = new JButton("Overwatch");
 			newGame1 = "Overwatch";

@@ -39,7 +39,6 @@ public class Window {
 
 	protected Shell shlVirtue;
 	private Text searchBox;
-	private Table table;
 
 	/**
 	 * Launch the application.
@@ -198,7 +197,7 @@ public class Window {
 		Game8.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				InfoWindow game = new InfoWindow("Destiny");
+				InfoWindow game = new InfoWindow("Destiny 2");
 				game.setVisible(true);
 			}
 		});
