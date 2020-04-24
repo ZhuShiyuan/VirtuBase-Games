@@ -10,10 +10,11 @@ public class Driver {
 	
 	public static KeywordIndex keyDex = new KeywordIndex();
 	public static ArrayList<GameData> gameList = new ArrayList<GameData>();
+	public static ArrayList<CommentData> commentList = new ArrayList<CommentData>();
 
 	public static void main(String[] args) {
 		retrieveGamesList();
-		dataTest(gameList.get(0));
+		dataTest(gameList.get(0), commentList.get(0));
 		writeToFile();
 	}
 	
@@ -54,6 +55,22 @@ public class Driver {
 						keyDex));
 				}
 			input.close();
+			
+			//Comments
+			Scanner commentInput = new Scanner(new File("commentdatabase.csv"));
+			
+			while(commentInput.hasNext()) {
+				String[] commentData = commentInput.nextLine().split(",");
+				
+				String game = commentData[0];
+				String username = commentData[1];
+				String comment = commentData[2];
+				
+				commentList.add(new CommentData(game, username, comment));
+			}
+			
+			commentInput.close();
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("READ FILE NOT FOUND");
 		}
@@ -79,7 +96,7 @@ public class Driver {
 	}
 	
 	// Tester method, prints data members of chosen game and first listed storefront
-	public static void dataTest(GameData game) {
+	public static void dataTest(GameData game, CommentData comment) {
 		System.out.println(game.getTitle());
 		System.out.println(game.getCompany());
 		System.out.println(game.getWiki());
@@ -89,6 +106,11 @@ public class Driver {
 		System.out.println(game.getKeyword(0));
 		System.out.println(game.getKeyword(1));
 		System.out.println(game.getKeyword(2));
+		
+		System.out.println("-----Test Comment-----");
+		System.out.println(comment.getGame());
+		System.out.println(comment.getUsername());
+		System.out.println(comment.getComment());
 	}
 
 }

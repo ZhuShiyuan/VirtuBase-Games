@@ -3,6 +3,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import org.eclipse.swt.*;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.wb.swt.CommentWindow;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,14 +26,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.net.MalformedURLException;
+import javax.swing.JButton;
 
 public class InfoWindow extends JFrame {
 
 	private JPanel contentPane;
-	private String name, company, keyword1, keyword2, keyword3, storeName, wiki, storeLink;
+	private String name, company, keyword1, keyword2, keyword3, storeName, wiki, storeLink, picture,
+		newGame1, newGame2, newGame3;
 	double storePrice;
 	private ArrayList<GameData> games = new ArrayList<GameData>();
 	private int position = 0;
+	private JButton Rec1, Rec2, Rec3, CommentsButton;
 
 	/**
 	 * Launch the application.
@@ -88,7 +93,7 @@ public class InfoWindow extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(gameName);
-		setBounds(100, 100, 638, 426);
+		setBounds(100, 100, 708, 446);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -195,26 +200,137 @@ public class InfoWindow extends JFrame {
 		
 		JLabel keywordtext = new JLabel("Keywords: " + keyword1 + ", " + keyword2 + ", " + keyword3);
 		keywordtext.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		if(name == "Overwatch") keywordtext.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		if(name == "Fortnite") keywordtext.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		keywordtext.setBounds(15, 160, 396, 40);
+		keywordtext.setBounds(15, 160, 459, 40);
 		contentPane.add(keywordtext);
 		
 		JLabel gamepicture = new JLabel("");
-		String picture;
 		
-		if(name == "Call of Duty: Modern Warfare") picture = "./pictures/callofdutypicture.jpg";
-		else if(name == "CSGO") picture = "./pictures/csgopicture.jpeg";
-		else if(name == "Minecraft") picture = "./pictures/minecraftpicture.jpeg";
-		else if (name == "Fortnite") picture = "./pictures/fortnitepicture.jpg";
-		else if (name == "Overwatch") picture = "./pictures/overwatchpicture.jpg";
-		else if (name == "GTA") picture = "./pictures/gtapicture.png";
-		else if (name == "RocketLeague") picture = "./pictures/rlpicture.jpg";
-		else if (name == "Destiny") picture = "./pictures/destinypicture.jpg";
-		else picture = "NOT FOUND";
+		if(name == "Call of Duty: Modern Warfare") {
+			picture = "./pictures/callofdutypicture.jpg";
+			Rec1 = new JButton("CSGO");
+			newGame1 = "CSGO";
+			Rec2 = new JButton("Overwatch");
+			newGame2 = "Overwatch";
+			Rec3 = new JButton("Fortnite");
+			newGame3 = "Fortnite";
+		}
+		else if(name == "CSGO") {
+			picture = "./pictures/csgopicture.jpeg";
+			Rec1 = new JButton("COD");
+			newGame1 = "Call of Duty: Modern Warfare";
+			Rec2 = new JButton("Overwatch");
+			newGame2 = "Overwatch";
+			Rec3 = new JButton("Fortnite");
+			newGame3 = "Fortnite";
+		}
+		else if(name == "Minecraft") {
+			picture = "./pictures/minecraftpicture.jpeg";
+			Rec1 = new JButton("Rocket League");
+			newGame1 = "RocketLeague";
+			Rec2 = new JButton("Fortnite");
+			newGame2 = "Fortnite";
+			Rec3 = new JButton("GTA");
+			newGame3 = "GTA";
+		}
+		else if (name == "Fortnite") {
+			picture = "./pictures/fortnitepicture.jpg";
+			Rec1 = new JButton("COD");
+			newGame1 = "Call of Duty: Modern Warfare";
+			Rec2 = new JButton("Minecraft");
+			newGame2 = "Minecraft";
+			Rec3 = new JButton("Overwatch");
+			newGame3 = "Overwatch";
+		}
+		else if (name == "Overwatch") {
+			picture = "./pictures/overwatchpicture.jpg";
+			Rec1 = new JButton("COD");
+			newGame1 = "Call of Duty: Modern Warfare";
+			Rec2 = new JButton("CSGO");
+			newGame2 = "CSGO";
+			Rec3 = new JButton("Destiny 2");
+			newGame3 = "Destiny";
+		}
+		else if (name == "GTA") {
+			picture = "./pictures/gtapicture.png";
+			Rec1 = new JButton("Rocket League");
+			newGame1 = "RocketLeague";
+			Rec2 = new JButton("COD");
+			newGame2 = "Call of Duty: Modern Warfare";
+			Rec3 = new JButton("Destiny 2");
+			newGame3 = "Destiny";
+		}
+		else if (name == "RocketLeague") {
+			picture = "./pictures/rlpicture.jpg";
+			Rec1 = new JButton("GTA");
+			newGame1 = "GTA";
+			Rec2 = new JButton("Fortnite");
+			newGame2 = "Fortnite";
+			Rec3 = new JButton("Minecraft");
+			newGame3 = "Minecraft";
+		}
+		else if (name == "Destiny") {
+			picture = "./pictures/destinypicture.jpg";
+			Rec1 = new JButton("Overwatch");
+			newGame1 = "Overwatch";
+			Rec2 = new JButton("GTA");
+			newGame2 = "GTA";
+			Rec3 = new JButton("Fortnite");
+			newGame3 = "Fortnite";
+		}
 		
 		gamepicture.setIcon(new ImageIcon(picture));
-		gamepicture.setBounds(411, 67, 200, 283);
+		gamepicture.setBounds(486, 67, 200, 283);
 		contentPane.add(gamepicture);
+		
+		Rec1.setBounds(217, 369, 117, 29);
+		contentPane.add(Rec1);
+		
+		Rec2.setBounds(346, 369, 117, 29);
+		contentPane.add(Rec2);
+		
+		Rec3.setBounds(475, 369, 117, 29);
+		contentPane.add(Rec3);
+		
+		//Rec buttons
+		Rec1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				InfoWindow game = new InfoWindow(newGame1);
+				game.setVisible(true);		
+			}
+		});
+		Rec2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				InfoWindow game = new InfoWindow(newGame2);
+				game.setVisible(true);
+			}
+		});
+		Rec3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				InfoWindow game = new InfoWindow(newGame3);
+				game.setVisible(true);
+			}
+		});
+		
+		JLabel lblRecommendations = new JLabel("Recommendations:");
+		lblRecommendations.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblRecommendations.setBounds(15, 362, 190, 40);
+		contentPane.add(lblRecommendations);
+		
+		CommentsButton = new JButton("Comments");
+		CommentsButton.setBounds(604, 355, 97, 56);
+		contentPane.add(CommentsButton);
+		CommentsButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CommentWindow commentWindow = new CommentWindow(name);
+				commentWindow.setVisible(true);
+			}
+		});
 	}
 }
