@@ -471,4 +471,8 @@ public class Window {
 	public boolean search(String titleWords) {
 		return titleWords.contains(getSearch());
 	}
+	
+		public String getFakeSearch(String searchTerm) {
+		return searchTerm.toLowerCase();
+	}
 }
