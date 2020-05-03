@@ -9,16 +9,12 @@ class SearchTest {
 		try {
 			Window window = new Window();
 			window.open();
-			assertTrue("call of duty: modern warfare cod".contains(window.getFakeSearch("call")));
-			assertTrue("call of duty: modern warfare cod".contains(window.getFakeSearch("of")));
-			assertTrue("call of duty: modern warfare cod".contains(window.getFakeSearch("duty")));
-			assertTrue("call of duty: modern warfare cod".contains(window.getFakeSearch("CoD")));
-			assertFalse("call of duty: modern warfare cod".contains(window.getFakeSearch("Overwatch")));
-			assertFalse("call of duty: modern warfare cod".contains(window.getFakeSearch("minecraft")));
-			assertFalse("call of duty: modern warfare cod".contains(window.getFakeSearch("halo")));
-			assertTrue(callofduty.isVisible());
-			assertFalse(minecraft.isVisible());
-			
+			assertTrue(window.search("call"));
+			assertTrue(window.search("of"));
+			assertTrue(window.search("duty"));
+			assertFalse(window.search("overwatch"));
+			assertFalse(window.search("minecraft"));
+			assertFalse(window.search("gta"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,15 +26,12 @@ class SearchTest {
 		try {
 			Window window = new Window();
 			window.open();
-			assertTrue("overwatch".contains(window.getFakeSearch("o")));
-			assertTrue("overwatch".contains(window.getFakeSearch("over")));
-			assertTrue("overwatch".contains(window.getFakeSearch("watch")));
-			assertTrue("overwatch".contains(window.getFakeSearch("OvErWatCH")));
-			assertFalse("overwatch".contains(window.getFakeSearch("COD")));
-			assertFalse("overwatch".contains(window.getFakeSearch("minecraft")));
-			assertFalse("overwatch".contains(window.getFakeSearch("halo")));
-			assertTrue(overwatch.isVisible());
-			assertFalse(rocketleague.isVisible());
+			assertTrue(window.search("overwatch"));
+			assertTrue(window.search("OvErWaTcH"));
+			assertTrue(window.search("over"));
+			assertFalse(window.search("cod"));
+			assertFalse(window.search("minecraft"));
+			assertFalse(window.search("gta"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,15 +44,12 @@ class SearchTest {
 		try {
 			Window window = new Window();
 			window.open();
-			assertTrue("gta grand theft auto".contains(window.getFakeSearch("gta")));
-			assertTrue("gta grand theft auto".contains(window.getFakeSearch("g")));
-			assertTrue("gta grand theft auto".contains(window.getFakeSearch("gta grand theft auto")));
-			assertTrue("gta grand theft auto".contains(window.getFakeSearch("GTA GRAND")));
-			assertFalse("gta grand theft auto".contains(window.getFakeSearch("pong")));
-			assertFalse("gta grand theft auto".contains(window.getFakeSearch("minecraft")));
-			assertFalse("gta grand theft auto".contains(window.getFakeSearch("halo")));
-			assertTrue(gta.isVisible());
-			assertFalse(callofduty.isVisible());
+			assertTrue(window.search("mineCraft"));
+			assertTrue(window.search("Minecraft"));
+			assertTrue(window.search("craft"));
+			assertFalse(window.search("overwatch"));
+			assertFalse(window.search("call of duty"));
+			assertFalse(window.search("gta"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
