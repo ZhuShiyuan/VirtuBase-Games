@@ -18,7 +18,16 @@ public class Login {
 	private Button back;
 	private Label usernameicon;
 	private Label passwordicon;
+	private static String user, pass;
 	private static boolean loginStatus = false;
+	private Button btnRegister;
+	private Label RegisterTitle;
+	private Button EnterReg;
+	private static String newUsername;
+	private static String newPassword;
+	private Label UsernameExists;
+	private Label MissingPass;
+	private Label UserCharacters;
 
 	/**
 	 * Launch the application.
@@ -52,9 +61,47 @@ public class Login {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		Driver.retrieveLogin();
+		
 		shlLoginVirtubase = new Shell();
 		shlLoginVirtubase.setSize(500, 370);
 		shlLoginVirtubase.setText("Login - Virtubase Games");
+		
+		UserCharacters = new Label(shlLoginVirtubase, SWT.NONE);
+		UserCharacters.setVisible(false);
+		UserCharacters.setText("Error: Username must be atleast 3 characters.");
+		UserCharacters.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		UserCharacters.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 15, SWT.ITALIC));
+		UserCharacters.setAlignment(SWT.CENTER);
+		UserCharacters.setBounds(0, 72, 500, 25);
+		
+		MissingPass = new Label(shlLoginVirtubase, SWT.NONE);
+		MissingPass.setVisible(false);
+		MissingPass.setText("Error: Missing password.");
+		MissingPass.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		MissingPass.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 15, SWT.ITALIC));
+		MissingPass.setAlignment(SWT.CENTER);
+		MissingPass.setBounds(133, 72, 233, 25);
+		
+		UsernameExists = new Label(shlLoginVirtubase, SWT.NONE);
+		UsernameExists.setVisible(false);
+		UsernameExists.setText("Error: Username already exists.");
+		UsernameExists.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		UsernameExists.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 15, SWT.ITALIC));
+		UsernameExists.setAlignment(SWT.CENTER);
+		UsernameExists.setBounds(133, 72, 233, 25);
+		
+		RegisterTitle = new Label(shlLoginVirtubase, SWT.NONE);
+		RegisterTitle.setVisible(false);
+		RegisterTitle.setText("REGISTER");
+		RegisterTitle.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 35, SWT.BOLD));
+		RegisterTitle.setAlignment(SWT.CENTER);
+		RegisterTitle.setBounds(133, 25, 233, 57);
+		
+		EnterReg = new Button(shlLoginVirtubase, SWT.NONE);
+		EnterReg.setVisible(false);
+		EnterReg.setText("Enter");
+		EnterReg.setBounds(203, 207, 94, 27);
 	
 		
 		//Login screen
@@ -86,35 +133,115 @@ public class Login {
 		btnLogin.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(username.getText().equals("admin") && password.getText().equals("password")) {
-					loginStatus = true;
-					Window main = new Window();
-					main.open();
-					shlLoginVirtubase.close();
-				}
-				else {
-					invaliderror.setVisible(true);
+				Driver.retrieveLogin();
+				
+				user = username.getText();
+				pass = password.getText();
+				for(int i = 0; i < Driver.loginList.size(); i++) {
+					if(user.equals(Driver.loginList.get(i).getUsername()) && pass.equals(Driver.loginList.get(i).getPassword())) {
+						loginStatus = true;
+						Window main = new Window();
+						main.open();
+						shlLoginVirtubase.close();
+					}
+					else {
+						invaliderror.setVisible(true);
+					}
 				}
 			}
 		});
-		btnLogin.setBounds(203, 207, 94, 27);
+		btnLogin.setBounds(146, 207, 94, 27);
 		btnLogin.setText("Login");
 		
-		Label title = new Label(shlLoginVirtubase, SWT.NONE);
-		title.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 35, SWT.BOLD));
-		title.setBounds(133, 25, 233, 57);
-		title.setText("ADMIN LOGIN");
+		Label UserLoginTitle = new Label(shlLoginVirtubase, SWT.NONE);
+		UserLoginTitle.setAlignment(SWT.CENTER);
+		UserLoginTitle.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 35, SWT.BOLD));
+		UserLoginTitle.setBounds(133, 25, 233, 57);
+		UserLoginTitle.setText("USER LOGIN");
+		
+		btnRegister = new Button(shlLoginVirtubase, SWT.NONE);
+		btnRegister.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				username.setVisible(true);
+				password.setVisible(true);
+				usernameicon.setVisible(true);
+				passwordicon.setVisible(true);
+				btnLogin.setVisible(false);
+				btnRegister.setVisible(false);
+				UserLoginTitle.setVisible(false);
+				back.setVisible(false);		
+				EnterReg.setVisible(true);
+				RegisterTitle.setVisible(true);	
+				
+				EnterReg.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						boolean passes = true;
+						
+						Driver.retrieveLogin();
+						newUsername = username.getText();
+						newPassword = password.getText();
+						
+						//checks if user already exist
+						for(int i = 0; i < Driver.loginList.size(); i++) {
+							if(newUsername.equals(Driver.loginList.get(i).getUsername())) {
+								UsernameExists.setVisible(true);
+								UserCharacters.setVisible(false);
+								MissingPass.setVisible(false);
+								passes = false;
+							}
+						}
+						
+						//checks length of username
+						if(newUsername.length() < 3) {
+							UserCharacters.setVisible(true);
+							UsernameExists.setVisible(false);
+							MissingPass.setVisible(false);
+							passes = false;
+						}
+						
+						//checks if password is entered
+						if(newPassword.length() < 1) {
+							MissingPass.setVisible(true);
+							UsernameExists.setVisible(false);
+							UserCharacters.setVisible(false);
+						}
+						
+						//update file
+						if(passes) {
+							Driver.writeToLogin();
+							
+							btnLogin.setVisible(true);
+							btnRegister.setVisible(true);
+							UserLoginTitle.setVisible(true);
+							back.setVisible(true);
+							EnterReg.setVisible(false);
+							RegisterTitle.setVisible(false);
+							UsernameExists.setVisible(false);
+							UserCharacters.setVisible(false);
+							MissingPass.setVisible(false);
+							
+						}	
+					}
+				});
+			}
+		});
+		btnRegister.setVisible(false);
+		btnRegister.setText("Register");
+		btnRegister.setBounds(260, 207, 94, 27);
 		
 		back = new Button(shlLoginVirtubase, SWT.NONE);
 		back.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				user = "Guest";
 				Window main = new Window();
 				main.open();
 				shlLoginVirtubase.close();
 			}
 		});
-		back.setText("Launch as User");
+		back.setText("Launch as Guest");
 		back.setBounds(160, 260, 179, 64);
 		
 
@@ -124,49 +251,61 @@ public class Login {
 		usernameicon.setVisible(false);
 		passwordicon.setVisible(false);
 		btnLogin.setVisible(false);
-		title.setVisible(false);
+		btnRegister.setVisible(false);
+		UserLoginTitle.setVisible(false);
 		back.setVisible(false);
+		EnterReg.setVisible(false);
 		
-		Button userbutton = new Button(shlLoginVirtubase, SWT.NONE);
-		userbutton.addSelectionListener(new SelectionAdapter() {
+		Button guestbutton = new Button(shlLoginVirtubase, SWT.NONE);
+		guestbutton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				user = "Guest";
 				Window main = new Window();
 				main.open();
 				shlLoginVirtubase.close();
 			}
 		});
-		userbutton.setImage(SWTResourceManager.getImage("./pictures/userlogin.png"));
-		userbutton.setBounds(27, 70, 180, 180);
+		guestbutton.setImage(SWTResourceManager.getImage("./pictures/guestlogin.png"));
+		guestbutton.setBounds(27, 70, 180, 180);
 				
-		Button adminbutton = new Button(shlLoginVirtubase, SWT.NONE);
-		adminbutton.addSelectionListener(new SelectionAdapter() {
+		Button userbutton = new Button(shlLoginVirtubase, SWT.NONE);
+		userbutton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				guestbutton.setVisible(false);
 				userbutton.setVisible(false);
-				adminbutton.setVisible(false);
 				username.setVisible(true);
 				password.setVisible(true);
 				usernameicon.setVisible(true);
 				passwordicon.setVisible(true);
 				btnLogin.setVisible(true);
-				title.setVisible(true);
-				back.setVisible(true);
-						
-						
+				btnRegister.setVisible(true);
+				UserLoginTitle.setVisible(true);
+				back.setVisible(true);	
 			}
 		});
-		adminbutton.setImage(SWTResourceManager.getImage("./pictures/adminlogin.png"));
-		adminbutton.setBounds(267, 70, 180, 180);
+		userbutton.setImage(SWTResourceManager.getImage("./pictures/userlogin.png"));
+		userbutton.setBounds(267, 70, 180, 180);
 				
 				
 		//Background
 		Browser background = new Browser(shlLoginVirtubase, SWT.NONE);
 		background.setUrl("https://i.pinimg.com/originals/24/22/32/24223276aba1bd1f91190a745023e469.gif");
 		background.setBounds(0, -54, 500, 500);
+		
 	}
 	
 	public static boolean getLoginStatus() {
 		return loginStatus;
+	}
+	
+	public static String getUser() {
+		return user;
+	}
+
+	public static String newReg() {
+		String reg = newUsername + "," + newPassword;
+		return reg;
 	}
 }

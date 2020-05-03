@@ -23,7 +23,6 @@ public class CommentWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField enterUsername;
 	private JTextField enterComment;
 	private static String newUser = "";
 	private static String newComment = "";
@@ -90,41 +89,44 @@ public class CommentWindow extends JFrame {
 		NewCommentText.setBounds(251, 441, 198, 41);
 		contentPane.add(NewCommentText);
 		
-		JLabel UsernameText = new JLabel("Username:");
-		UsernameText.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		UsernameText.setBounds(6, 485, 78, 29);
-		contentPane.add(UsernameText);
-		
-		enterUsername = new JTextField();
-		enterUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		enterUsername.setBounds(88, 484, 153, 30);
-		contentPane.add(enterUsername);
-		enterUsername.setColumns(10);
-		
 		JLabel CommentText = new JLabel("Comment:");
 		CommentText.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		CommentText.setBounds(245, 485, 78, 29);
+		CommentText.setBounds(6, 485, 78, 29);
 		contentPane.add(CommentText);
 		
 		enterComment = new JTextField();
 		enterComment.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		enterComment.setColumns(10);
-		enterComment.setBounds(324, 487, 378, 30);
+		enterComment.setBounds(85, 487, 617, 30);
 		contentPane.add(enterComment);
+		
+		JLabel Warning = new JLabel("Invalid new comment. Comment must be at least 5 characters long.");
+		Warning.setHorizontalAlignment(SwingConstants.CENTER);
+		Warning.setForeground(Color.RED);
+		Warning.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
+		Warning.setBounds(6, 425, 696, 16);
+		contentPane.add(Warning);
+		Warning.setVisible(false);
 		
 		JButton enterButton = new JButton("Enter");
 		enterButton.addMouseListener(new MouseAdapter() {	
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				newUser = enterUsername.getText();
+				newUser = Login.getUser();
 				newComment = enterComment.getText();
 				
-				Driver.writeToFile();
-				
-				clearText();
-				
-				//clear rows
-				setup();
+				if(newComment.length() >= 5) {
+					Driver.writeToFile();
+					Warning.setVisible(false);
+					
+					clearText();
+					
+					//clear rows
+					setup();
+				}
+				else {
+					Warning.setVisible(true);
+				}
 			}
 		});
 		enterButton.setBounds(324, 526, 117, 29);
@@ -136,12 +138,12 @@ public class CommentWindow extends JFrame {
 		TitleText.setFont(new Font("Lucida Grande", Font.BOLD, 30));
 		TitleText.setBounds(6, 6, 696, 41);
 		contentPane.add(TitleText);
+		
 	}
 	
 	
 	
 	private void clearText() {
-		enterUsername.setText("");
 		enterComment.setText("");
 	}
 	

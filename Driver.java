@@ -12,7 +12,8 @@ public class Driver {
 	
 	public static KeywordIndex keyDex = new KeywordIndex();
 	public static ArrayList<GameData> gameList = new ArrayList<GameData>();
-	public static ArrayList<CommentData> commentList = new ArrayList<CommentData>();;
+	public static ArrayList<CommentData> commentList = new ArrayList<CommentData>();
+	public static ArrayList<LoginData> loginList = new ArrayList<LoginData>();
 
 	public static void main(String[] args) {
 		retrieveGamesList();
@@ -20,7 +21,7 @@ public class Driver {
 		writeToFile();
 	}
 	
-	// Read data from database file
+	// Read data from database files
 	public static void retrieveGamesList() {
 		
 		try {
@@ -68,11 +69,38 @@ public class Driver {
 				String game = commentData[0];
 				String username = commentData[1];
 				String comment = commentData[2];
+				if(commentData.length > 2) {
+					for(int k = 3; k < commentData.length; k++) {
+						comment = comment + "," + commentData[k];
+					}
+				}
 				
 				commentList.add(new CommentData(game, username, comment));
 			}
 			
 			commentInput.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("READ FILE NOT FOUND");
+		}
+	}
+	
+	//Collects login database
+	public static void retrieveLogin() {
+		try {
+			Scanner loginInput = new Scanner(new File("logindatabase.csv"));
+			loginList.clear();
+			
+			while(loginInput.hasNext()) {
+				String[] loginData = loginInput.nextLine().split(",");
+				
+				String user = loginData[0];
+				String pass = loginData[1];
+				
+				loginList.add(new LoginData(user, pass));
+			}
+			
+			loginInput.close();
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("READ FILE NOT FOUND");
@@ -95,6 +123,7 @@ public class Driver {
 		    
 		    commentWriter.close();
 		    
+		    
 //			PrintWriter writer = new PrintWriter("database.csv");
 //			String[] keywords = keyDex.writeList();
 //			String formatKeyword = "";
@@ -106,6 +135,26 @@ public class Driver {
 //				writer.println(gameList.get(i).prepForFile());
 //			}
 //			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("WRITE FILE NOT FOUND");
+		}
+	}
+	
+	//Write to login file
+	public static void writeToLogin() {
+		//Logins
+	    
+	    PrintWriter loginWriter;
+		try {
+			loginWriter = new PrintWriter("logindatabase.csv");
+			//old logins
+		    for(int k = 0; k < loginList.size(); k++) {
+		    	loginWriter.println(loginList.get(k).getUsername() + "," + loginList.get(k).getPassword());
+		    }
+		    
+		   //new login
+		    loginWriter.println(Login.newReg());
+		    loginWriter.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("WRITE FILE NOT FOUND");
 		}

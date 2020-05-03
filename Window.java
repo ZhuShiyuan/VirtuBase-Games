@@ -39,6 +39,7 @@ public class Window {
 
 	protected Shell shlVirtue;
 	private Text searchBox;
+	private boolean edit = false;
 
 	/**
 	 * Launch the application.
@@ -78,23 +79,39 @@ public class Window {
 		shlVirtue.setText("VirtuBase Games");
 		shlVirtue.setLayout(null);
 		
-		Label AdminMode = new Label(shlVirtue, SWT.NONE);
-		AdminMode.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
-		AdminMode.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 25, SWT.BOLD));
-		AdminMode.setBounds(1253, 10, 160, 34);
-		AdminMode.setText("ADMIN MODE");
-		AdminMode.setVisible(false);
+		Button DoneButton = new Button(shlVirtue, SWT.NONE);
+		DoneButton.setBounds(1353, 47, 60, 27);
+		DoneButton.setText("Done");
+		DoneButton.setVisible(false);
 		
-		if(Login.getLoginStatus()) {
-			AdminMode.setVisible(true);
+		Button EditButton = new Button(shlVirtue, SWT.NONE);
+		EditButton.setBounds(1360, 47, 53, 27);
+		EditButton.setText("Edit");
+		EditButton.setVisible(false);
+		
+		Label UserDisplay = new Label(shlVirtue, SWT.NONE);
+		UserDisplay.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		UserDisplay.setAlignment(SWT.RIGHT);
+		if(Login.getUser().equals("Guest")) {
+			UserDisplay.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 		}
+		if(Login.getUser().equals("admin")) {
+			UserDisplay.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		}
+		else if (Login.getUser().equals("moderator")) {
+			UserDisplay.setForeground(SWTResourceManager.getColor(SWT.COLOR_CYAN));
+		}
+		UserDisplay.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 25, SWT.BOLD));
+		UserDisplay.setBounds(1009, 10, 404, 34);
+		UserDisplay.setText(Login.getUser());
+		UserDisplay.setVisible(true);
 		
-		Label lblNewLabel = new Label(shlVirtue, SWT.NONE);
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
-		lblNewLabel.setAlignment(SWT.CENTER);
-		lblNewLabel.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 50, SWT.NORMAL));
-		lblNewLabel.setBounds(0, 10, 1450, 64);
-		lblNewLabel.setText("Game Database");
+		Label GameDatabaseTitle = new Label(shlVirtue, SWT.NONE);
+		GameDatabaseTitle.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
+		GameDatabaseTitle.setAlignment(SWT.CENTER);
+		GameDatabaseTitle.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 50, SWT.NORMAL));
+		GameDatabaseTitle.setBounds(0, 10, 1450, 64);
+		GameDatabaseTitle.setText("Game Database");
 		
 		Browser CODpicture = new Browser(shlVirtue, SWT.NONE);
 		CODpicture.setUrl("https://savegame.pro/wp-content/uploads/2020/01/call-of-duty-modern-warfare-cover.jpg");
@@ -130,11 +147,11 @@ public class Window {
 		CheckRacing.setBounds(833, 80, 65, 34);
 		CheckRacing.setText("Racing");
 		
-		Label lblNewLabel_1 = new Label(shlVirtue, SWT.NONE);
-		lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
-		lblNewLabel_1.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 20, SWT.NORMAL));
-		lblNewLabel_1.setBounds(374, 87, 65, 27);
-		lblNewLabel_1.setText("Search");
+		Label Searchlabel = new Label(shlVirtue, SWT.NONE);
+		Searchlabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
+		Searchlabel.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 20, SWT.NORMAL));
+		Searchlabel.setBounds(374, 87, 65, 27);
+		Searchlabel.setText("Search");
 		
 		Browser Fortnitepicture = new Browser(shlVirtue, SWT.NONE);
 		Fortnitepicture.setUrl("https://i.scdn.co/image/ab67706c0000da84263a9a46b6093120c513c7aa");
@@ -144,9 +161,9 @@ public class Window {
 		Minecraftpicture.setUrl("https://toptechinspector.com/wp-content/uploads/2019/08/minecraft-ava-300x300.jpg");
 		Minecraftpicture.setBounds(750, 140, 300, 274);
 		
-		Browser OverwatchPicture = new Browser(shlVirtue, SWT.NONE);
-		OverwatchPicture.setUrl("https://eu.battle.net/support/static/images/games/tile_overwatch.227b2450.jpg");
-		OverwatchPicture.setBounds(50, 460, 300, 274);
+		Browser Overwatchpicture = new Browser(shlVirtue, SWT.NONE);
+		Overwatchpicture.setUrl("https://eu.battle.net/support/static/images/games/tile_overwatch.227b2450.jpg");
+		Overwatchpicture.setBounds(50, 460, 300, 274);
 		
 		Browser GTApicture = new Browser(shlVirtue, SWT.NONE);
 		GTApicture.setUrl("https://lunasmods.com/wp-content/uploads/2019/02/grand-theft-auto-v-1-300x300.jpg");
@@ -259,7 +276,7 @@ public class Window {
 						Game3.setVisible(f);
 						Fortnitepicture.setVisible(f);
 						Game4.setVisible(f);
-						OverwatchPicture.setVisible(f);
+						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
 						GTApicture.setVisible(f);
 						Game6.setVisible(f);
@@ -277,7 +294,7 @@ public class Window {
 						Game3.setVisible(t);
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
-						OverwatchPicture.setVisible(f);
+						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -295,7 +312,7 @@ public class Window {
 						Game3.setVisible(t);
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
-						OverwatchPicture.setVisible(f);
+						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -313,7 +330,7 @@ public class Window {
 						Game3.setVisible(f);
 						Fortnitepicture.setVisible(f);
 						Game4.setVisible(f);
-						OverwatchPicture.setVisible(f);
+						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -331,7 +348,7 @@ public class Window {
 						Game3.setVisible(t);
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
-						OverwatchPicture.setVisible(t);
+						Overwatchpicture.setVisible(t);
 						Game5.setVisible(t);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -349,7 +366,7 @@ public class Window {
 						Game3.setVisible(t);
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
-						OverwatchPicture.setVisible(t);
+						Overwatchpicture.setVisible(t);
 						Game5.setVisible(t);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -367,7 +384,7 @@ public class Window {
 						Game3.setVisible(t);
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
-						OverwatchPicture.setVisible(t);
+						Overwatchpicture.setVisible(t);
 						Game5.setVisible(t);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -385,7 +402,7 @@ public class Window {
 						Game3.setVisible(f);
 						Fortnitepicture.setVisible(t);
 						Game4.setVisible(t);
-						OverwatchPicture.setVisible(t);
+						Overwatchpicture.setVisible(t);
 						Game5.setVisible(t);
 						GTApicture.setVisible(t);
 						Game6.setVisible(t);
@@ -406,7 +423,7 @@ public class Window {
 					Game3.setVisible(f);
 					Fortnitepicture.setVisible(f);
 					Game4.setVisible(f);
-					OverwatchPicture.setVisible(f);
+					Overwatchpicture.setVisible(f);
 					Game5.setVisible(f);
 					GTApicture.setVisible(f);
 					Game6.setVisible(f);
@@ -436,7 +453,7 @@ public class Window {
 					}
 					
 					if(search("overwatch")) {
-						OverwatchPicture.setVisible(t);
+						Overwatchpicture.setVisible(t);
 						Game5.setVisible(t);
 					}
 					
@@ -460,7 +477,177 @@ public class Window {
 		btnSearch.setBounds(1009, 85, 94, 27);
 		btnSearch.setText("Search");
 		
+		Label Game1Eye = new Label(shlVirtue, SWT.NONE);
+		Game1Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game1.getVisible() == true) {
+					Game1.setVisible(false);
+					CODpicture.setVisible(false);
+				} else {
+					Game1.setVisible(true);
+					CODpicture.setVisible(true);
+				}
+			}
+		});
+		Game1Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game1Eye.setBounds(356, 134, 27, 27);			
+		Label Game2Eye = new Label(shlVirtue, SWT.NONE);
+		Game2Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game2.getVisible() == true) {
+					Game2.setVisible(false);
+					CSGOpicture.setVisible(false);
+				} else {
+					Game2.setVisible(true);
+					CSGOpicture.setVisible(true);
+				}
+			}
+		});
+		Game2Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game2Eye.setBounds(706, 134, 27, 27);
+		Label Game3Eye = new Label(shlVirtue, SWT.NONE);
+		Game3Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game3.getVisible() == true) {
+					Game3.setVisible(false);
+					Minecraftpicture.setVisible(false);
+				} else {
+					Game3.setVisible(true);
+					Minecraftpicture.setVisible(true);
+				}
+			}
+		});
+		Game3Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game3Eye.setBounds(1056, 134, 27, 27);
 		
+		Label Game4Eye = new Label(shlVirtue, SWT.NONE);
+		Game4Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game4.getVisible() == true) {
+					Game4.setVisible(false);
+					Fortnitepicture.setVisible(false);
+				} else {
+					Game4.setVisible(true);
+					Fortnitepicture.setVisible(true);
+				}
+			}
+		});
+		Game4Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game4Eye.setBounds(1406, 134, 27, 27);
+		
+		Label Game7Eye = new Label(shlVirtue, SWT.NONE);
+		Game7Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game7.getVisible() == true) {
+					Game7.setVisible(false);
+					Rlpicture.setVisible(false);
+				} else {
+					Game7.setVisible(true);
+					Rlpicture.setVisible(true);
+				}
+			}
+		});
+		Game7Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game7Eye.setBounds(1056, 454, 27, 27);
+		
+		Label Game8Eye = new Label(shlVirtue, SWT.NONE);
+		Game8Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game8.getVisible() == true) {
+					Game8.setVisible(false);
+					Destinypicture.setVisible(false);
+				} else {
+					Game8.setVisible(true);
+					Destinypicture.setVisible(true);
+				}
+			}
+		});
+		Game8Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game8Eye.setBounds(1406, 454, 27, 27);
+		
+		Label Game6Eye = new Label(shlVirtue, SWT.NONE);
+		Game6Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game6.getVisible() == true) {
+					Game6.setVisible(false);
+					GTApicture.setVisible(false);
+				} else {
+					Game6.setVisible(true);
+					GTApicture.setVisible(true);
+				}
+			}
+		});
+		Game6Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game6Eye.setBounds(706, 454, 27, 27);
+		
+		Label Game5Eye = new Label(shlVirtue, SWT.NONE);
+		Game5Eye.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if(Game5.getVisible() == true) {
+					Game5.setVisible(false);
+					Overwatchpicture.setVisible(false);
+				} else {
+					Game5.setVisible(true);
+					Overwatchpicture.setVisible(true);
+				}
+			}
+		});
+		Game5Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
+		Game5Eye.setBounds(356, 454, 27, 27);
+		
+		Game1Eye.setVisible(false);
+		Game2Eye.setVisible(false);
+		Game3Eye.setVisible(false);
+		Game4Eye.setVisible(false);
+		Game5Eye.setVisible(false);
+		Game6Eye.setVisible(false);
+		Game7Eye.setVisible(false);
+		Game8Eye.setVisible(false);
+		
+		if(Login.getUser().equals("admin")) {
+			EditButton.setVisible(true);
+			EditButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					EditButton.setVisible(false);
+					DoneButton.setVisible(true);
+					
+					Game1Eye.setVisible(true);
+					Game2Eye.setVisible(true);
+					Game3Eye.setVisible(true);
+					Game4Eye.setVisible(true);
+					Game5Eye.setVisible(true);
+					Game6Eye.setVisible(true);
+					Game7Eye.setVisible(true);
+					Game8Eye.setVisible(true);
+				}
+				
+			});
+			DoneButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					DoneButton.setVisible(false);
+					EditButton.setVisible(true);
+					
+					Game1Eye.setVisible(false);
+					Game2Eye.setVisible(false);
+					Game3Eye.setVisible(false);
+					Game4Eye.setVisible(false);
+					Game5Eye.setVisible(false);
+					Game6Eye.setVisible(false);
+					Game7Eye.setVisible(false);
+					Game8Eye.setVisible(false);
+				}
+			});
+		}
 		
 	}
 	
@@ -470,9 +657,5 @@ public class Window {
 
 	public boolean search(String titleWords) {
 		return titleWords.contains(getSearch());
-	}
-	
-		public String getFakeSearch(String searchTerm) {
-		return searchTerm.toLowerCase();
 	}
 }
