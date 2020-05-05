@@ -17,8 +17,7 @@ public class Driver {
 
 	public static void main(String[] args) {
 		retrieveGamesList();
-		dataTest(gameList.get(0), commentList.get(0));
-		writeToFile();
+		writeToDatabase();
 	}
 	
 	// Read data from database files
@@ -41,7 +40,8 @@ public class Driver {
 				}
 				int[] keywords = new int[] {Integer.parseInt(data[3]), Integer.parseInt(data[4]), Integer.parseInt(data[5])};
 				ArrayList<Storefront> storeList = new ArrayList<Storefront>();
-				for (int i = 6; i < data.length; i+=3) {
+				String visible = data[6];
+				for (int i = 7; i < data.length; i+=3) {
 					URL storeURL;
 					try { storeURL = new URL(data[i+2]); } catch (MalformedURLException e) {
 						System.out.println("MALFORMED URL FOR " + data[i]); 
@@ -49,11 +49,13 @@ public class Driver {
 					}
 					storeList.add(new Storefront(data[i],Double.parseDouble(data[i+1]),storeURL));
 				}
+				
 				gameList.add(new GameData(
 						title,
 						company, 
 						wiki, 
-						keywords, 
+						keywords,
+						visible,
 						storeList,
 						keyDex));
 				}
@@ -108,6 +110,38 @@ public class Driver {
 	}
 	
 	// Write data to database file
+	public static void writeToDatabase() {
+		try {
+		    PrintWriter databaseWriter = new PrintWriter("database.csv");
+		    
+		    //headers
+		    databaseWriter.println("FPS,Military,Multiplayer,Sci-Fi,Sandbox,Voxel,Visible,Survival,"
+		    		+ "Competitive,Shooter,Battle-Royale,RPG,Open-World");
+		    
+		    //old comments
+		    for(int k = 0; k < gameList.size(); k++) {
+		    	databaseWriter.print(gameList.get(k).getTitle() + "," + gameList.get(k).getCompany() + "," +
+		    			gameList.get(k).getWiki() + "," + gameList.get(k).getIndexNums(0) + "," + 
+		    			gameList.get(k).getIndexNums(1) + "," + gameList.get(k).getIndexNums(2) + "," + 
+		    			gameList.get(k).getVisibleInt() + "," + 
+		    			gameList.get(k).getStorefront(0).getName() + "," + 
+		    			gameList.get(k).getStorefront(0).getPrice() + "," +
+		    			gameList.get(k).getStorefront(0).getLink());
+		    	if(gameList.get(k).getStorefrontCount() == 2) {
+		    		databaseWriter.println("," + gameList.get(k).getStorefront(1).getName() + "," + 
+			    			gameList.get(k).getStorefront(1).getPrice() + "," +
+			    			gameList.get(k).getStorefront(1).getLink());
+		    	} else databaseWriter.println();
+		    }
+		    
+		    databaseWriter.close();
+		    
+		} catch (FileNotFoundException e) {
+			System.out.println("WRITE FILE NOT FOUND");
+		}
+	}
+	
+	// Write data to commentdatabase file
 	public static void writeToFile() {
 		try {
 		    PrintWriter commentWriter = new PrintWriter("commentdatabase.csv");
@@ -119,22 +153,12 @@ public class Driver {
 		    }
 		    
 		    //new comment
-		    commentWriter.println(CommentWindow.output());
+		    if(!CommentWindow.getDeleting()) {
+		    	commentWriter.println(CommentWindow.output());
+		    }
 		    
 		    commentWriter.close();
 		    
-		    
-//			PrintWriter writer = new PrintWriter("database.csv");
-//			String[] keywords = keyDex.writeList();
-//			String formatKeyword = "";
-//			for (String i :keywords) {
-//				formatKeyword = formatKeyword + i + ",";
-//			}
-//			writer.println(formatKeyword);
-//			for (int i=0; i<gameList.size();i++) {
-//				writer.println(gameList.get(i).prepForFile());
-//			}
-//			writer.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("WRITE FILE NOT FOUND");
 		}

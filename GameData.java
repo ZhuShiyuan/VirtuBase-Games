@@ -11,14 +11,16 @@ public class GameData {
 	private ArrayList<Storefront> storefronts;
 	private int storefrontCount;
 	public KeywordIndex keywordIndex;
+	private int visible;
 	
 	//Creates an object that holds the data on one single game
-	public GameData(String title, String company, URL wiki, int[] indexList, ArrayList<Storefront> storefronts, KeywordIndex keywordIndex) {
+	public GameData(String title, String company, URL wiki, int[] indexList, String vis, ArrayList<Storefront> storefronts, KeywordIndex keywordIndex) {
 		this.title = title;
 		this.company = company;
 		this.wiki = wiki;
 		this.indexList = indexList;
 		this.keywordIndex =keywordIndex;
+		this.visible = Integer.parseInt(vis);
 		this.storefronts = storefronts;
 		this.storefrontCount = storefronts.size();
 		for (int i = 0; i < keywords.length; i++) {
@@ -40,7 +42,17 @@ public class GameData {
 		if (index < 3 && index >= 0) return this.keywords[index];
 		else return "ERROR";
 	}
-	public int StorefrontCount() { return this.storefrontCount; }
+	public int getIndexNums(int i) {
+		return this.indexList[i];
+	}
+	public boolean getVisible() {
+		if(this.visible == 1) return true;
+		return false;
+	}
+	public int getVisibleInt() {
+		return this.visible;
+	}
+	public int getStorefrontCount() { return this.storefrontCount; }
 	public Storefront getStorefront(int index) {
 		if (index < storefrontCount && index >= 0) return this.storefronts.get(index);
 		else return null;
@@ -50,6 +62,7 @@ public class GameData {
 	public void setTitle(String title) { this.title = title; }
 	public void setCompany(String company) { this.company = company; }
 	public void setWiki(URL wiki) { this.wiki = wiki; }
+	public void setVisible(int num) { this.visible = num; }
 	public boolean setKeyword(int index, String keyword) {
 		try {
 			keywordIndex.addKeyword(keyword);

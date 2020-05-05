@@ -34,6 +34,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.events.DragDetectEvent;
+import org.eclipse.swt.events.SelectionListener;
+import java.util.function.Consumer;
 
 public class Window {
 
@@ -73,11 +75,43 @@ public class Window {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		Driver.retrieveGamesList();
+		
 		shlVirtue = new Shell();
 		shlVirtue.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
 		shlVirtue.setSize(1450, 825);
 		shlVirtue.setText("VirtuBase Games");
 		shlVirtue.setLayout(null);
+		
+		Button RequestGame = new Button(shlVirtue, SWT.NONE);
+		RequestGame.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				RequestGame request = new RequestGame();
+				request.open();
+			}
+		});
+		
+		RequestGame.setText("Request");
+		RequestGame.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		RequestGame.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 11, SWT.BOLD));
+		RequestGame.setBounds(50, 23, 94, 47);
+		RequestGame.setVisible(true);
+		
+		
+		Button DeletedComments = new Button(shlVirtue, SWT.NONE);
+		DeletedComments.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 11, SWT.BOLD));
+		DeletedComments.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		DeletedComments.setBounds(50, 23, 94, 47);
+		DeletedComments.setText("Deleted");
+		DeletedComments.setVisible(false);
+		DeletedComments.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				CommentWindow deletedComments = new CommentWindow("DELETED");
+				deletedComments.setVisible(true);
+			}
+		});
 		
 		Button DoneButton = new Button(shlVirtue, SWT.NONE);
 		DoneButton.setBounds(1353, 47, 60, 27);
@@ -116,10 +150,12 @@ public class Window {
 		Browser CODpicture = new Browser(shlVirtue, SWT.NONE);
 		CODpicture.setUrl("https://savegame.pro/wp-content/uploads/2020/01/call-of-duty-modern-warfare-cover.jpg");
 		CODpicture.setBounds(50, 140, 300, 274);
+		CODpicture.setVisible(Driver.gameList.get(0).getVisible());
 		
 		Browser CSGOpicture = new Browser(shlVirtue, SWT.NONE);
 		CSGOpicture.setUrl("https://www.allkeyshop.com/blog/wp-content/uploads/buy-csgo-1-premium-random-skin-cd-key-pc-download-img1.jpg");
 		CSGOpicture.setBounds(400, 140, 300, 274);
+		CSGOpicture.setVisible(Driver.gameList.get(1).getVisible());
 		
 		Button Game1 = new Button(shlVirtue, SWT.NONE);
 		Game1.addSelectionListener(new SelectionAdapter() {
@@ -131,6 +167,7 @@ public class Window {
 		});
 		Game1.setBounds(148, 425, 105, 27);
 		Game1.setText("Learn more");
+		Game1.setVisible(Driver.gameList.get(0).getVisible());
 		
 		searchBox = new Text(shlVirtue, SWT.BORDER);
 		searchBox.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 19, SWT.NORMAL));
@@ -156,26 +193,32 @@ public class Window {
 		Browser Fortnitepicture = new Browser(shlVirtue, SWT.NONE);
 		Fortnitepicture.setUrl("https://i.scdn.co/image/ab67706c0000da84263a9a46b6093120c513c7aa");
 		Fortnitepicture.setBounds(1100, 140, 300, 274);
+		Fortnitepicture.setVisible(Driver.gameList.get(3).getVisible());
 		
 		Browser Minecraftpicture = new Browser(shlVirtue, SWT.NONE);
 		Minecraftpicture.setUrl("https://toptechinspector.com/wp-content/uploads/2019/08/minecraft-ava-300x300.jpg");
 		Minecraftpicture.setBounds(750, 140, 300, 274);
+		Minecraftpicture.setVisible(Driver.gameList.get(2).getVisible());
 		
 		Browser Overwatchpicture = new Browser(shlVirtue, SWT.NONE);
 		Overwatchpicture.setUrl("https://eu.battle.net/support/static/images/games/tile_overwatch.227b2450.jpg");
 		Overwatchpicture.setBounds(50, 460, 300, 274);
+		Overwatchpicture.setVisible(Driver.gameList.get(4).getVisible());
 		
 		Browser GTApicture = new Browser(shlVirtue, SWT.NONE);
 		GTApicture.setUrl("https://lunasmods.com/wp-content/uploads/2019/02/grand-theft-auto-v-1-300x300.jpg");
 		GTApicture.setBounds(400, 460, 300, 274);
+		GTApicture.setVisible(Driver.gameList.get(5).getVisible());
 		
 		Browser Rlpicture = new Browser(shlVirtue, SWT.NONE);
 		Rlpicture.setUrl("https://static-cdn.jtvnw.net/jtv_user_pictures/d2f4517c-b867-40d1-bf36-48de9146e966-profile_image-300x300.png");
 		Rlpicture.setBounds(750, 460, 300, 274);
+		Rlpicture.setVisible(Driver.gameList.get(6).getVisible());
 		
 		Browser Destinypicture = new Browser(shlVirtue, SWT.NONE);
 		Destinypicture.setUrl("https://uploads.mixer.com/cover/b39904b13f1012ed8671.jpg?rev=3");
 		Destinypicture.setBounds(1100, 460, 300, 274);
+		Destinypicture.setVisible(Driver.gameList.get(7).getVisible());
 		
 		Button Game2 = new Button(shlVirtue, SWT.NONE);
 		Game2.addSelectionListener(new SelectionAdapter() {
@@ -187,6 +230,7 @@ public class Window {
 		});
 		Game2.setText("Learn more");
 		Game2.setBounds(498, 425, 105, 27);
+		Game2.setVisible(Driver.gameList.get(1).getVisible());
 		
 		Button Game3 = new Button(shlVirtue, SWT.NONE);
 		Game3.addSelectionListener(new SelectionAdapter() {
@@ -198,6 +242,7 @@ public class Window {
 		});
 		Game3.setText("Learn more");
 		Game3.setBounds(848, 425, 105, 27);
+		Game3.setVisible(Driver.gameList.get(2).getVisible());
 		
 		Button Game4 = new Button(shlVirtue, SWT.NONE);
 		Game4.addSelectionListener(new SelectionAdapter() {
@@ -209,6 +254,7 @@ public class Window {
 		});
 		Game4.setText("Learn more");
 		Game4.setBounds(1198, 425, 105, 27);
+		Game4.setVisible(Driver.gameList.get(3).getVisible());
 		
 		Button Game8 = new Button(shlVirtue, SWT.NONE);
 		Game8.addSelectionListener(new SelectionAdapter() {
@@ -220,6 +266,7 @@ public class Window {
 		});
 		Game8.setText("Learn more");
 		Game8.setBounds(1198, 745, 105, 27);
+		Game8.setVisible(Driver.gameList.get(7).getVisible());
 		
 		Button Game7 = new Button(shlVirtue, SWT.NONE);
 		Game7.addSelectionListener(new SelectionAdapter() {
@@ -231,6 +278,7 @@ public class Window {
 		});
 		Game7.setText("Learn more");
 		Game7.setBounds(848, 745, 105, 27);
+		Game7.setVisible(Driver.gameList.get(6).getVisible());
 		
 		Button Game6 = new Button(shlVirtue, SWT.NONE);
 		Game6.addSelectionListener(new SelectionAdapter() {
@@ -242,6 +290,7 @@ public class Window {
 		});
 		Game6.setText("Learn more");
 		Game6.setBounds(498, 745, 105, 27);
+		Game6.setVisible(Driver.gameList.get(5).getVisible());
 		
 		Button Game5 = new Button(shlVirtue, SWT.NONE);
 		Game5.addSelectionListener(new SelectionAdapter() {
@@ -253,6 +302,7 @@ public class Window {
 		});
 		Game5.setText("Learn more");
 		Game5.setBounds(148, 745, 105, 27);
+		Game5.setVisible(Driver.gameList.get(4).getVisible());
 		
 		Button CheckOW = new Button(shlVirtue, SWT.CHECK);
 		CheckOW.setText("Open-World");
@@ -290,36 +340,36 @@ public class Window {
 						Game1.setVisible(f);
 						CSGOpicture.setVisible(f);
 						Game2.setVisible(f);
-						Minecraftpicture.setVisible(t);
-						Game3.setVisible(t);
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
+						if(Driver.gameList.get(2).getVisible()) Minecraftpicture.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Game3.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Fortnitepicture.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Game4.setVisible(t);
 						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
 						Rlpicture.setVisible(f);
 						Game7.setVisible(f);
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
 					}
 					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
 						CODpicture.setVisible(f);
 						Game1.setVisible(f);
 						CSGOpicture.setVisible(f);
 						Game2.setVisible(f);
-						Minecraftpicture.setVisible(t);
-						Game3.setVisible(t);
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Minecraftpicture.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Game3.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Fortnitepicture.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Game4.setVisible(t);
 						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
-						Rlpicture.setVisible(t);
-						Game7.setVisible(t);
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Rlpicture.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Game7.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
 					}
 					if(CheckShooter.getSelection() == false && CheckRacing.getSelection() == true  && CheckOW.getSelection() == false) {
 						CODpicture.setVisible(f);
@@ -332,84 +382,84 @@ public class Window {
 						Game4.setVisible(f);
 						Overwatchpicture.setVisible(f);
 						Game5.setVisible(f);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
-						Rlpicture.setVisible(t);
-						Game7.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Rlpicture.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Game7.setVisible(t);
 						Destinypicture.setVisible(f);
 						Game8.setVisible(f);
 					}
 					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == true) {
-						CODpicture.setVisible(t);
-						Game1.setVisible(t);
-						CSGOpicture.setVisible(t);
-						Game2.setVisible(t);
-						Minecraftpicture.setVisible(t);
-						Game3.setVisible(t);
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
-						Overwatchpicture.setVisible(t);
-						Game5.setVisible(t);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
+						if(Driver.gameList.get(0).getVisible())CODpicture.setVisible(t);
+						if(Driver.gameList.get(0).getVisible())Game1.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())CSGOpicture.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())Game2.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Minecraftpicture.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Game3.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Fortnitepicture.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Game4.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Overwatchpicture.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Game5.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
 						Rlpicture.setVisible(f);
 						Game7.setVisible(f);
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
 					}
 					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == false) {
-						CODpicture.setVisible(t);
-						Game1.setVisible(t);
-						CSGOpicture.setVisible(t);
-						Game2.setVisible(t);
-						Minecraftpicture.setVisible(t);
-						Game3.setVisible(t);
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
-						Overwatchpicture.setVisible(t);
-						Game5.setVisible(t);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
-						Rlpicture.setVisible(t);
-						Game7.setVisible(t);
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
-					}
-					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
-						CODpicture.setVisible(t);
-						Game1.setVisible(t);
-						CSGOpicture.setVisible(t);
-						Game2.setVisible(t);
-						Minecraftpicture.setVisible(t);
-						Game3.setVisible(t);
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
-						Overwatchpicture.setVisible(t);
-						Game5.setVisible(t);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
-						Rlpicture.setVisible(t);
-						Game7.setVisible(t);
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
-					}
-					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == false) {
-						CODpicture.setVisible(t);
-						Game1.setVisible(t);
-						CSGOpicture.setVisible(t);
-						Game2.setVisible(t);
+						if(Driver.gameList.get(0).getVisible())CODpicture.setVisible(t);
+						if(Driver.gameList.get(0).getVisible())Game1.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())CSGOpicture.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())Game2.setVisible(t);
 						Minecraftpicture.setVisible(f);
 						Game3.setVisible(f);
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
-						Overwatchpicture.setVisible(t);
-						Game5.setVisible(t);
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Fortnitepicture.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Game4.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Overwatchpicture.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Game5.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Rlpicture.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Game7.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == true  && CheckOW.getSelection() == true) {
+						if(Driver.gameList.get(0).getVisible())CODpicture.setVisible(t);
+						if(Driver.gameList.get(0).getVisible())Game1.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())CSGOpicture.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())Game2.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Minecraftpicture.setVisible(t);
+						if(Driver.gameList.get(2).getVisible())Game3.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Fortnitepicture.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Game4.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Overwatchpicture.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Game5.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Rlpicture.setVisible(f);
+						if(Driver.gameList.get(6).getVisible())Game7.setVisible(f);
+						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
+					}
+					if(CheckShooter.getSelection() == true && CheckRacing.getSelection() == false  && CheckOW.getSelection() == false) {
+						if(Driver.gameList.get(0).getVisible())CODpicture.setVisible(t);
+						if(Driver.gameList.get(0).getVisible())Game1.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())CSGOpicture.setVisible(t);
+						if(Driver.gameList.get(1).getVisible())Game2.setVisible(t);
+						Minecraftpicture.setVisible(f);
+						Game3.setVisible(f);
+						if(Driver.gameList.get(3).getVisible())Fortnitepicture.setVisible(t);
+						if(Driver.gameList.get(3).getVisible())Game4.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Overwatchpicture.setVisible(t);
+						if(Driver.gameList.get(4).getVisible())Game5.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
+						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
 						Rlpicture.setVisible(f);
 						Game7.setVisible(f);
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
+						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
 					}
 				}
 				//If searched
@@ -433,43 +483,59 @@ public class Window {
 					Game8.setVisible(f);
 					
 					if(search("call of duty: modern warfare cod")) {
-						CODpicture.setVisible(t);
-						Game1.setVisible(t);
+						if(Driver.gameList.get(0).getVisible()) {
+							CODpicture.setVisible(t);
+							Game1.setVisible(t);
+						}
 					}
 					
 					if(search("csgo counter strike global offensive")) {
-						CSGOpicture.setVisible(t);
-						Game2.setVisible(t);
+						if(Driver.gameList.get(1).getVisible()) {
+							CSGOpicture.setVisible(t);
+							Game2.setVisible(t);
+						}
 					}
 					
 					if(search("minecraft")) {
-						Minecraftpicture.setVisible(t);
-						Game3.setVisible(t);
+						if(Driver.gameList.get(2).getVisible()) {
+							Minecraftpicture.setVisible(t);
+							Game3.setVisible(t);
+						}
 					}
 					
 					if(search("fortnite battle royale")) {
-						Fortnitepicture.setVisible(t);
-						Game4.setVisible(t);
+						if(Driver.gameList.get(3).getVisible()) {
+							Fortnitepicture.setVisible(t);
+							Game4.setVisible(t);
+						}
 					}
 					
 					if(search("overwatch")) {
-						Overwatchpicture.setVisible(t);
-						Game5.setVisible(t);
+						if(Driver.gameList.get(4).getVisible()) {
+							Overwatchpicture.setVisible(t);
+							Game5.setVisible(t);
+						}
 					}
 					
 					if(search("gta grand theft auto")) {
-						GTApicture.setVisible(t);
-						Game6.setVisible(t);
+						if(Driver.gameList.get(5).getVisible()) {
+							GTApicture.setVisible(t);
+							Game6.setVisible(t);
+						}
 					}
 					
 					if(search("rl rocketleague rocket league")) {
-						Rlpicture.setVisible(t);
-						Game7.setVisible(t);
+						if(Driver.gameList.get(6).getVisible()) {
+							Rlpicture.setVisible(t);
+							Game7.setVisible(t);
+						}
 					}
 					
 					if(search("destiny 2")) {
-						Destinypicture.setVisible(t);
-						Game8.setVisible(t);
+						if(Driver.gameList.get(7).getVisible()) {
+							Destinypicture.setVisible(t);
+							Game8.setVisible(t);
+						}
 					}
 				}
 			}
@@ -484,10 +550,13 @@ public class Window {
 				if(Game1.getVisible() == true) {
 					Game1.setVisible(false);
 					CODpicture.setVisible(false);
+					Driver.gameList.get(0).setVisible(0);
 				} else {
 					Game1.setVisible(true);
 					CODpicture.setVisible(true);
+					Driver.gameList.get(0).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game1Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -499,10 +568,13 @@ public class Window {
 				if(Game2.getVisible() == true) {
 					Game2.setVisible(false);
 					CSGOpicture.setVisible(false);
+					Driver.gameList.get(1).setVisible(0);
 				} else {
 					Game2.setVisible(true);
 					CSGOpicture.setVisible(true);
+					Driver.gameList.get(1).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game2Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -514,10 +586,13 @@ public class Window {
 				if(Game3.getVisible() == true) {
 					Game3.setVisible(false);
 					Minecraftpicture.setVisible(false);
+					Driver.gameList.get(2).setVisible(0);
 				} else {
 					Game3.setVisible(true);
 					Minecraftpicture.setVisible(true);
+					Driver.gameList.get(2).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game3Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -530,10 +605,13 @@ public class Window {
 				if(Game4.getVisible() == true) {
 					Game4.setVisible(false);
 					Fortnitepicture.setVisible(false);
+					Driver.gameList.get(3).setVisible(0);
 				} else {
 					Game4.setVisible(true);
 					Fortnitepicture.setVisible(true);
+					Driver.gameList.get(3).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game4Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -546,10 +624,13 @@ public class Window {
 				if(Game7.getVisible() == true) {
 					Game7.setVisible(false);
 					Rlpicture.setVisible(false);
+					Driver.gameList.get(6).setVisible(0);
 				} else {
 					Game7.setVisible(true);
 					Rlpicture.setVisible(true);
+					Driver.gameList.get(6).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game7Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -562,10 +643,13 @@ public class Window {
 				if(Game8.getVisible() == true) {
 					Game8.setVisible(false);
 					Destinypicture.setVisible(false);
+					Driver.gameList.get(7).setVisible(0);
 				} else {
 					Game8.setVisible(true);
 					Destinypicture.setVisible(true);
+					Driver.gameList.get(7).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game8Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -578,10 +662,13 @@ public class Window {
 				if(Game6.getVisible() == true) {
 					Game6.setVisible(false);
 					GTApicture.setVisible(false);
+					Driver.gameList.get(5).setVisible(0);
 				} else {
 					Game6.setVisible(true);
 					GTApicture.setVisible(true);
+					Driver.gameList.get(5).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game6Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -594,10 +681,13 @@ public class Window {
 				if(Game5.getVisible() == true) {
 					Game5.setVisible(false);
 					Overwatchpicture.setVisible(false);
+					Driver.gameList.get(4).setVisible(0);
 				} else {
 					Game5.setVisible(true);
 					Overwatchpicture.setVisible(true);
+					Driver.gameList.get(4).setVisible(1);
 				}
+				Driver.writeToDatabase();
 			}
 		});
 		Game5Eye.setImage(SWTResourceManager.getImage("./pictures/eyeicon.png"));
@@ -612,8 +702,15 @@ public class Window {
 		Game7Eye.setVisible(false);
 		Game8Eye.setVisible(false);
 		
+		if(Login.getUser().equals("moderator")) {
+			DeletedComments.setVisible(true);
+			RequestGame.setVisible(false);
+		}
+		
 		if(Login.getUser().equals("admin")) {
 			EditButton.setVisible(true);
+			DeletedComments.setVisible(true);
+			RequestGame.setVisible(false);
 			EditButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
