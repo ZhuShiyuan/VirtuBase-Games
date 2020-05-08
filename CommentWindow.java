@@ -1,13 +1,8 @@
-
-
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.crypto.Data;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -28,6 +23,7 @@ public class CommentWindow extends JFrame {
 	private static String newComment = "";
 	private static String newGame = "";
 	private DefaultTableModel model = new DefaultTableModel();
+	private static boolean deleting = false;
 
 	/**
 	 * Launch the application.
@@ -72,17 +68,63 @@ public class CommentWindow extends JFrame {
 		
 		setup();
 		scrollPane.setViewportView(table);
-
 		
-		JButton RefreshButton = new JButton("Refresh");
-		RefreshButton.addMouseListener(new MouseAdapter() {
+		JLabel modadminerror = new JLabel("Must be a moderator or admin to delete comments!");
+		modadminerror.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
+		modadminerror.setHorizontalAlignment(SwingConstants.CENTER);
+		modadminerror.setForeground(Color.RED);
+		modadminerror.setBounds(6, 425, 696, 16);
+		contentPane.add(modadminerror);
+		modadminerror.setVisible(false);
+		
+		JLabel Warning = new JLabel("Invalid new comment. Comment must be at least 5 characters long.");
+		Warning.setHorizontalAlignment(SwingConstants.CENTER);
+		Warning.setForeground(Color.RED);
+		Warning.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
+		Warning.setBounds(6, 425, 696, 16);
+		contentPane.add(Warning);
+		Warning.setVisible(false);
+		
+		JLabel deleted = new JLabel("Comment successfully deleted.");
+		deleted.setHorizontalAlignment(SwingConstants.CENTER);
+		deleted.setForeground(Color.RED);
+		deleted.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
+		deleted.setBounds(6, 425, 696, 16);
+		contentPane.add(deleted);
+		deleted.setVisible(false);
+		
+		JButton DeleteButton = new JButton("Delete");
+		DeleteButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Warning.setVisible(false);	
+				deleting = true;
+				
+				if(Login.getUser().equals("moderator") || Login.getUser().equals("admin")) {
+					int wantedCount = table.getSelectedRow()+1;
+					int count = 0;
+					
+					for(int i = 0; i < Driver.commentList.size(); i++) {
+						if(Driver.commentList.get(i).getGame().equals(newGame)) {
+							count++;
+							if(count == wantedCount) {
+								clearText();
+								Driver.commentList.get(i).deleteGame();
+								deleted.setVisible(true);
+							}
+						}
+					}
+					setup();
+				} else {
+					modadminerror.setVisible(true);
+					Warning.setVisible(false);
+					deleted.setVisible(false);
+				}
 				
 			}
 		});
-		RefreshButton.setBounds(206, 526, 117, 29);
-		contentPane.add(RefreshButton);
+		DeleteButton.setBounds(233, 526, 117, 29);
+		contentPane.add(DeleteButton);
 		
 		JLabel NewCommentText = new JLabel("New Comment");
 		NewCommentText.setFont(new Font("Lucida Grande", Font.BOLD, 26));
@@ -100,18 +142,14 @@ public class CommentWindow extends JFrame {
 		enterComment.setBounds(85, 487, 617, 30);
 		contentPane.add(enterComment);
 		
-		JLabel Warning = new JLabel("Invalid new comment. Comment must be at least 5 characters long.");
-		Warning.setHorizontalAlignment(SwingConstants.CENTER);
-		Warning.setForeground(Color.RED);
-		Warning.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
-		Warning.setBounds(6, 425, 696, 16);
-		contentPane.add(Warning);
-		Warning.setVisible(false);
-		
 		JButton enterButton = new JButton("Enter");
 		enterButton.addMouseListener(new MouseAdapter() {	
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				deleting = false;
+				modadminerror.setVisible(false);
+				deleted.setVisible(false);
+				
 				newUser = Login.getUser();
 				newComment = enterComment.getText();
 				
@@ -129,7 +167,7 @@ public class CommentWindow extends JFrame {
 				}
 			}
 		});
-		enterButton.setBounds(324, 526, 117, 29);
+		enterButton.setBounds(351, 526, 117, 29);
 		contentPane.add(enterButton);
 			
 		JLabel TitleText = new JLabel("Comments for " + game);
@@ -148,8 +186,11 @@ public class CommentWindow extends JFrame {
 	}
 	
 	public static String output() {
-		String output = newGame + "," + newUser + "," + newComment;
-		return output;
+		if(newComment.length()>1) {
+			String output = newGame + "," + newUser + "," + newComment;
+			return output;
+		}
+		return "";
 	}
 	
 	private void setup() {
@@ -166,5 +207,9 @@ public class CommentWindow extends JFrame {
 		}
 		
 		model.setDataVector(data, column);
+	}
+	
+	public static boolean getDeleting() {
+		return deleting;
 	}
 }

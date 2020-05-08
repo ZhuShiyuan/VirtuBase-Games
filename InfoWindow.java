@@ -1,31 +1,17 @@
-import java.awt.BorderLayout;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.eclipse.swt.*;
-import org.eclipse.swt.browser.Browser;
-
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import java.awt.Canvas;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Scrollbar;
-import java.awt.ScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.net.MalformedURLException;
 import javax.swing.JButton;
 
 public class InfoWindow extends JFrame {

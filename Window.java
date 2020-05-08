@@ -3,39 +3,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.Composite;
-
-import java.awt.Color;
-
-import org.eclipse.jface.layout.TableColumnLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Slider;
-import org.eclipse.swt.events.DragDetectListener;
-import org.eclipse.swt.events.DragDetectEvent;
-import org.eclipse.swt.events.SelectionListener;
-import java.util.function.Consumer;
 
 public class Window {
 
@@ -438,8 +412,8 @@ public class Window {
 						if(Driver.gameList.get(4).getVisible())Game5.setVisible(t);
 						if(Driver.gameList.get(5).getVisible())GTApicture.setVisible(t);
 						if(Driver.gameList.get(5).getVisible())Game6.setVisible(t);
-						if(Driver.gameList.get(6).getVisible())Rlpicture.setVisible(f);
-						if(Driver.gameList.get(6).getVisible())Game7.setVisible(f);
+						if(Driver.gameList.get(6).getVisible())Rlpicture.setVisible(t);
+						if(Driver.gameList.get(6).getVisible())Game7.setVisible(t);
 						if(Driver.gameList.get(7).getVisible())Destinypicture.setVisible(t);
 						if(Driver.gameList.get(7).getVisible())Game8.setVisible(t);
 					}
