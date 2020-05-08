@@ -13,7 +13,16 @@ public class GameData {
 	public KeywordIndex keywordIndex;
 	private int visible;
 	
-	//Creates an object that holds the data on one single game
+	/**
+	 * Instantiate a new gameData.
+	 * @param title - String - Title of the game.
+	 * @param company - String - Company that made the game.
+	 * @param wiki - URL - Link to the game's wiki.
+	 * @param indexList - int[] - List of keywords associated to the game.
+	 * @param vis - String - Visibility of the game, as set by an Admin account.
+	 * @param storefronts - ArrayList<Storefront> - List of storefronts that sell the game, of an unspecified length.
+	 * @param keywordIndex - KeywordIndex - Index of keywords to be referenced by indexList.
+	 */
 	public GameData(String title, String company, URL wiki, int[] indexList, String vis, ArrayList<Storefront> storefronts, KeywordIndex keywordIndex) {
 		this.title = title;
 		this.company = company;
@@ -35,34 +44,91 @@ public class GameData {
 	}
 
 	// Getter Methods
+	/**
+	 * Returns the title of the game.
+	 * @return title of the game as a String.
+	 */
 	public String getTitle() { return this.title; }
+	/**
+	 * Returns the company that made the game.
+	 * @return company that made the game as a String.
+	 */
 	public String getCompany() { return this.company; }
+	/**
+	 * Returns the wiki URL.
+	 * @return wiki as a URL.
+	 */
 	public URL getWiki() { return this.wiki; }
+	/**
+	 * Returns the name of the keyword being searched.
+	 * @param index - int - Desired index to be searched.
+	 * @return name of the keyword as a String, if searched index is outside of the valid range, return "ERROR".
+	 */
 	public String getKeyword(int index) {
 		if (index < 3 && index >= 0) return this.keywords[index];
 		else return "ERROR";
 	}
-	public int getIndexNums(int i) {
-		return this.indexList[i];
-	}
+	/**
+	 * Returns the int value of the index being searched.
+	 * @param i - int - Desired index to be searched.
+	 * @return value of the index as an int.
+	 */
+	public int getIndexNums(int i) { return this.indexList[i]; }
+	/**
+	 * Returns the visibility of the game.
+	 * @return visibility of the game as a boolean.
+	 */
 	public boolean getVisible() {
 		if(this.visible == 1) return true;
 		return false;
 	}
-	public int getVisibleInt() {
-		return this.visible;
-	}
+	/**
+	 * Returns the visibility of the game.
+	 * @return visibility of the game as an int.
+	 */
+	public int getVisibleInt() { return this.visible; }
+	/**
+	 * Returns the number of storefronts associated with this game.
+	 * @return number of storefronts as an int.
+	 */
 	public int getStorefrontCount() { return this.storefrontCount; }
+	/**
+	 * Returns the storefront being searched.
+	 * @param index - int - Desired index to be searched.
+	 * @return storefront as a Storefront.
+	 */
 	public Storefront getStorefront(int index) {
 		if (index < storefrontCount && index >= 0) return this.storefronts.get(index);
 		else return null;
 	}
 
 	// Setter Methods
+	/**
+	 * Sets a new title for the game.
+	 * @param title - String - new title.
+	 */
 	public void setTitle(String title) { this.title = title; }
+	/**
+	 * Sets a new company for the game.
+	 * @param company - String - new company.
+	 */
 	public void setCompany(String company) { this.company = company; }
+	/**
+	 * Sets a new wiki link for the game.
+	 * @param wiki - URL - new wiki link.
+	 */
 	public void setWiki(URL wiki) { this.wiki = wiki; }
+	/**
+	 * Sets a new visibility state for the game.
+	 * @param num - int - new visibility state.
+	 */
 	public void setVisible(int num) { this.visible = num; }
+	/**
+	 * Sets a new keyword at a specified index for the game.
+	 * @param index - int - index to be changed.
+	 * @param keyword - String - new keyword definition.
+	 * @return true if a change was made, otherwise no action is taken and return false.
+	 */
 	public boolean setKeyword(int index, String keyword) {
 		try {
 			keywordIndex.addKeyword(keyword);
@@ -76,7 +142,7 @@ public class GameData {
 	
 	/**
 	 * Convert data members into a usable String for file writing.
-	 * Title,Company,WikiURL,Keyword1,Keyword2,Keyword3,Storefronts
+	 * Title,Company,WikiURL,Keyword1,Keyword2,Keyword3,visibility,Storefronts
 	 * @return data members combined into a single String.
 	 */
 	public String prepForFile() {
@@ -90,6 +156,7 @@ public class GameData {
 				indexList[0] + "," + 
 				indexList[1] + "," + 
 				indexList[2] + "," +
+				visible + "," +
 				storeString;
 	}
 	
