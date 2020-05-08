@@ -8,6 +8,15 @@ public class KeywordIndex {
 	public KeywordIndex() {
 		keywordList = new ArrayList<String>();
 	}
+	
+	/**
+	 * gets the keyword list
+	 * @return keywordList
+	 */
+	public ArrayList<String> getKeywordList() { 
+		return keywordList;
+	}
+	
 	/**
 	 * Reads most current keyword list from file.
 	 * @param list - array of Strings to be converted to keywordList
